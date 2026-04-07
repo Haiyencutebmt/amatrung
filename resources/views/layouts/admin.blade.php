@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* ===== RESET & BASE ===== */
         *, *::before, *::after {
@@ -447,17 +448,8 @@
             {{-- Header --}}
             @include('partials.admin-header')
 
-            {{-- Flash messages --}}
+            {{-- Flash messages (SweetAlert2) --}}
             <div class="admin-content">
-                @if(session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if(session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
-                @if(session('warning'))
-                    <div class="alert alert-warning">{{ session('warning') }}</div>
-                @endif
 
                 {{-- Page content --}}
                 @yield('content')
@@ -487,6 +479,43 @@
             }
         });
     </script>
+
+    {{-- SweetAlert2 flash messages --}}
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: @json(session('success')),
+            confirmButtonColor: '#2f7d4a',
+            confirmButtonText: 'Đóng',
+            timer: 3000,
+            timerProgressBar: true,
+        });
+    </script>
+    @endif
+    @if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: @json(session('error')),
+            confirmButtonColor: '#b91c1c',
+            confirmButtonText: 'Đóng',
+        });
+    </script>
+    @endif
+    @if(session('warning'))
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cảnh báo!',
+            text: @json(session('warning')),
+            confirmButtonColor: '#e65100',
+            confirmButtonText: 'Đóng',
+        });
+    </script>
+    @endif
 
     @yield('scripts')
 </body>

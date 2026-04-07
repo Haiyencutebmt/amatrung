@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Auth\AdminAuthController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserDashboardController;
@@ -32,4 +33,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 // Admin area
 Route::prefix('admin')->middleware(['auth', 'role:admin,staff'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Quản lý bệnh nhân
+    Route::resource('patients', PatientController::class)->names('admin.patients');
 });

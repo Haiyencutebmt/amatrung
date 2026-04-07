@@ -14,7 +14,7 @@
             <span class="nav-icon">🏠</span>
             <span class="nav-label">Dashboard</span>
         </a>
-        <a href="#"
+        <a href="{{ route('admin.patients.index') }}"
            class="nav-item {{ request()->routeIs('admin.patients.*') ? 'active' : '' }}">
             <span class="nav-icon">👤</span>
             <span class="nav-label">Bệnh nhân</span>
