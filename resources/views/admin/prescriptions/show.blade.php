@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Chi tiết Hồ sơ bệnh án')
-@section('page-title', 'Chi tiết Hồ sơ')
+@section('title', 'Chi tiết Đơn thuốc')
+@section('page-title', 'Chi tiết Đơn thuốc')
 
 @section('styles')
     <style>
@@ -28,7 +28,23 @@
             font-weight: 700;
             color: #1a5632;
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .status-active { background: #e3f2fd; color: #1565c0; }
+        .status-completed { background: #e8f5e9; color: #2e7d32; }
+        .status-cancelled { background: #ffebee; color: #c62828; }
 
         .header-actions {
             display: flex;
@@ -111,8 +127,8 @@
             white-space: pre-wrap;
         }
 
-        /* Patient box */
-        .patient-box {
+        /* Medical Record box */
+        .record-box {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -123,14 +139,14 @@
             border: 1px solid #c8e6c9;
         }
 
-        .patient-info strong {
+        .record-info strong {
             font-size: 18px;
             color: #1a5632;
             display: block;
             margin-bottom: 4px;
         }
 
-        .patient-info span {
+        .record-info span {
             color: #2d3a2e;
         }
     </style>
@@ -139,56 +155,64 @@
 @section('content')
     <div class="detail-card">
         <div class="detail-header">
-            <h2>Mã hồ sơ: {{ $medicalRecord->record_code }}</h2>
+            <h2>
+                Mã đơn thuốc: {{ $prescription->prescription_code }}
+                <span class="status-badge status-{{ $prescription->status }}">
+                    @if($prescription->status == 'active')
+                        Đang sử dụng
+                    @elseif($prescription->status == 'completed')
+                        Hoàn thành
+                    @else
+                        Đã hủy
+                    @endif
+                </span>
+            </h2>
             <div class="header-actions">
-                <a href="{{ route('admin.prescriptions.create', ['medical_record_id' => $medicalRecord->id]) }}" class="btn" style="background: #e3f2fd; color: #1565c0; border-color: #bbdefb;">💊 Tạo đơn thuốc</a>
-                <a href="{{ route('admin.medical-records.edit', $medicalRecord) }}" class="btn btn-primary">✏️ Sửa hồ sơ</a>
-                <a href="{{ route('admin.medical-records.index') }}" class="btn btn-default">Quay lại</a>
+                <a href="{{ route('admin.prescriptions.edit', $prescription) }}" class="btn btn-primary">✏️ Sửa đơn</a>
+                <a href="{{ route('admin.prescriptions.index') }}" class="btn btn-default">Quay lại</a>
             </div>
         </div>
 
         <div class="info-section">
-            <h3>Thông tin bệnh nhân</h3>
-            <div class="patient-box">
-                <div class="patient-info">
-                    <strong>{{ $medicalRecord->patient->full_name }}</strong>
-                    <span>Giới tính: {{ $medicalRecord->patient->gender_label }} | Tuổi: {{ $medicalRecord->patient->age ?: '—' }} | SĐT: {{ $medicalRecord->patient->phone ?: '—' }}</span>
+            <h3>Hồ sơ bệnh án & Bệnh nhân</h3>
+            <div class="record-box">
+                <div class="record-info">
+                    <strong>Hồ sơ: {{ $prescription->medicalRecord->record_code }}</strong>
+                    <span>Bệnh nhân: {{ $prescription->medicalRecord->patient->full_name }} | Khám ngày: {{ $prescription->medicalRecord->visit_date->format('d/m/Y') }}</span>
                 </div>
-                <a href="{{ route('admin.patients.show', $medicalRecord->patient_id) }}" class="btn btn-default" style="background:#fff;">👁 Xem hồ sơ cá nhân</a>
+                <a href="{{ route('admin.medical-records.show', $prescription->medical_record_id) }}" class="btn btn-default" style="background:#fff;">📋 Xem hồ sơ gốc</a>
             </div>
         </div>
 
         <div class="info-section">
-            <h3>Thông tin khám bệnh</h3>
+            <h3>Thông tin đơn thuốc</h3>
             <div class="info-grid">
                 <div class="info-item">
-                    <span class="info-label">Ngày khám</span>
-                    <div class="info-value">{{ $medicalRecord->visit_date->format('d/m/Y') }}</div>
+                    <span class="info-label">Ngày kê đơn</span>
+                    <div class="info-value">{{ $prescription->prescribed_date->format('d/m/Y') }}</div>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Ngày tái khám</span>
-                    <div class="info-value">{{ $medicalRecord->follow_up_date ? $medicalRecord->follow_up_date->format('d/m/Y') : '—' }}</div>
+                    <span class="info-label">Chẩn đoán (từ hồ sơ)</span>
+                    <div class="info-value">{{ $prescription->medicalRecord->diagnosis ?: 'Không có' }}</div>
                 </div>
 
                 <div class="info-item full-width">
-                    <span class="info-label">Triệu chứng</span>
-                    <div class="info-value">{{ $medicalRecord->symptoms }}</div>
+                    <span class="info-label">Hướng dẫn sử dụng chung</span>
+                    <div class="info-value">{{ $prescription->usage_instruction ?: 'Không có (Sẽ hướng dẫn theo từng vị thuốc)' }}</div>
                 </div>
 
                 <div class="info-item full-width">
-                    <span class="info-label">Chẩn đoán</span>
-                    <div class="info-value">{{ $medicalRecord->diagnosis ?: 'Đang chờ cập nhật...' }}</div>
+                    <span class="info-label">Ghi chú, lời dặn thêm</span>
+                    <div class="info-value">{{ $prescription->general_note ?: 'Không có' }}</div>
                 </div>
+            </div>
+        </div>
 
-                <div class="info-item full-width">
-                    <span class="info-label">Ghi chú điều trị / Hướng xử lý</span>
-                    <div class="info-value">{{ $medicalRecord->treatment_note ?: 'Đang chờ cập nhật...' }}</div>
-                </div>
-
-                <div class="info-item full-width">
-                    <span class="info-label">Ghi chú chung</span>
-                    <div class="info-value">{{ $medicalRecord->note ?: 'Không có' }}</div>
-                </div>
+        {{-- TODO: Vùng hiển thị chi tiết các vị thuốc sẽ được thêm ở Ngày 5 --}}
+        <div class="info-section" style="margin-top: 40px;">
+            <h3>Chi tiết các vị thuốc (Dự kiến sắp tới)</h3>
+            <div style="background: #faf7f2; border: 1px dashed #d9e4d8; padding: 30px; text-align: center; border-radius: 12px; color: #5a6b5e;">
+                💊 <em>Khu vực này sẽ dành cho phần chi tiết các vị thuốc (Prescription Items) trong bước tiếp theo.</em>
             </div>
         </div>
     </div>

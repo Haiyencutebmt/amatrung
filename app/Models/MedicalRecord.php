@@ -32,4 +32,12 @@ class MedicalRecord extends Model
     {
         return $this->belongsTo(Patient::class);
     }
+
+    /**
+     * Lấy các đơn thuốc của hồ sơ này.
+     */
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
+    }
 }

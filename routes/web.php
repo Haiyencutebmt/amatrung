@@ -39,4 +39,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin,staff'])->group(function
 
     // Quản lý Hồ sơ bệnh án
     Route::resource('medical-records', \App\Http\Controllers\Admin\MedicalRecordController::class)->names('admin.medical-records');
+
+    // Quản lý Đơn thuốc
+    Route::resource('prescriptions', \App\Http\Controllers\Admin\PrescriptionController::class)->names('admin.prescriptions');
 });

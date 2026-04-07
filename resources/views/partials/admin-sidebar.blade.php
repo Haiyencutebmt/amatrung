@@ -24,7 +24,7 @@
             <span class="nav-icon">📋</span>
             <span class="nav-label">Hồ sơ bệnh án</span>
         </a>
-        <a href="#"
+        <a href="{{ route('admin.prescriptions.index') }}"
            class="nav-item {{ request()->routeIs('admin.prescriptions.*') ? 'active' : '' }}">
             <span class="nav-icon">💊</span>
             <span class="nav-label">Đơn thuốc</span>
