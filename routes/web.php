@@ -41,5 +41,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin,staff'])->group(function
     Route::resource('medical-records', \App\Http\Controllers\Admin\MedicalRecordController::class)->names('admin.medical-records');
 
     // Quản lý Đơn thuốc
+    Route::get('prescriptions/{prescription}/print', [\App\Http\Controllers\Admin\PrescriptionController::class, 'print'])->name('admin.prescriptions.print');
     Route::resource('prescriptions', \App\Http\Controllers\Admin\PrescriptionController::class)->names('admin.prescriptions');
+
+    // Quản lý Dược liệu
+    Route::resource('medicinal-herbs', \App\Http\Controllers\Admin\MedicinalHerbController::class)->names('admin.medicinal-herbs');
 });

@@ -29,8 +29,8 @@
             <span class="nav-icon">💊</span>
             <span class="nav-label">Đơn thuốc</span>
         </a>
-        <a href="#"
-           class="nav-item {{ request()->routeIs('admin.herbs.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.medicinal-herbs.index') }}"
+           class="nav-item {{ request()->routeIs('admin.medicinal-herbs.*') ? 'active' : '' }}">
             <span class="nav-icon">🌿</span>
             <span class="nav-label">Dược liệu</span>
         </a>

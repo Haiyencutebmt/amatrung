@@ -168,6 +168,7 @@
                 </span>
             </h2>
             <div class="header-actions">
+                <a href="{{ route('admin.prescriptions.print', $prescription) }}" target="_blank" class="btn" style="background:#fff3e0; color:#e65100; border-color:#ffe0b2;">🖨 In đơn</a>
                 <a href="{{ route('admin.prescriptions.edit', $prescription) }}" class="btn btn-primary">✏️ Sửa đơn</a>
                 <a href="{{ route('admin.prescriptions.index') }}" class="btn btn-default">Quay lại</a>
             </div>
@@ -208,11 +209,37 @@
             </div>
         </div>
 
-        {{-- TODO: Vùng hiển thị chi tiết các vị thuốc sẽ được thêm ở Ngày 5 --}}
         <div class="info-section" style="margin-top: 40px;">
-            <h3>Chi tiết các vị thuốc (Dự kiến sắp tới)</h3>
-            <div style="background: #faf7f2; border: 1px dashed #d9e4d8; padding: 30px; text-align: center; border-radius: 12px; color: #5a6b5e;">
-                💊 <em>Khu vực này sẽ dành cho phần chi tiết các vị thuốc (Prescription Items) trong bước tiếp theo.</em>
+            <h3>Chi tiết các vị thuốc (Tổng cộng: {{ $prescription->items->count() }} vị)</h3>
+            <div style="background: #ffffff; border: 1px solid #d9e4d8; border-radius: 12px; overflow: hidden;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #faf7f2; border-bottom: 2px solid #e8e2d8;">
+                            <th style="text-align: left; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">STT</th>
+                            <th style="text-align: left; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">Tên Vị Thuốc</th>
+                            <th style="text-align: center; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">Số lượng</th>
+                            <th style="text-align: left; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">Ghi chú / Cách dùng riêng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($prescription->items as $index => $item)
+                        <tr style="border-bottom: 1px solid #f2ede5;">
+                            <td style="padding: 12px 18px;">{{ $index + 1 }}</td>
+                            <td style="padding: 12px 18px; font-weight: 500;">
+                                <a href="{{ route('admin.medicinal-herbs.show', $item->medicinal_herb_id) }}" style="color: #1a5632; text-decoration: none;">
+                                    {{ $item->herb->name }}
+                                </a>
+                            </td>
+                            <td style="padding: 12px 18px; text-align: center;"><strong>{{ floatval($item->quantity) }}</strong> {{ $item->unit }}</td>
+                            <td style="padding: 12px 18px;">{{ $item->instruction ?: '-' }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 20px;">Chưa có vị thuốc nào.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
