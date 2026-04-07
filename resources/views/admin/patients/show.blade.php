@@ -186,6 +186,9 @@
                 </div>
             </div>
             <div class="detail-actions">
+                <a href="{{ route('admin.medical-records.create', ['patient_id' => $patient->id]) }}" class="btn-edit-detail" style="background: #e8f5e9; color: #1a5632; border-color: #c8e6c9;">
+                    ➕ Tạo hồ sơ
+                </a>
                 <a href="{{ route('admin.patients.edit', $patient) }}" class="btn-edit-detail">✏️ Sửa</a>
                 <a href="{{ route('admin.patients.index') }}" class="btn-back">← Quay lại</a>
             </div>

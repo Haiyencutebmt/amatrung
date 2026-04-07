@@ -19,8 +19,8 @@
             <span class="nav-icon">👤</span>
             <span class="nav-label">Bệnh nhân</span>
         </a>
-        <a href="#"
-           class="nav-item {{ request()->routeIs('admin.records.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.medical-records.index') }}"
+           class="nav-item {{ request()->routeIs('admin.medical-records.*') ? 'active' : '' }}">
             <span class="nav-icon">📋</span>
             <span class="nav-label">Hồ sơ bệnh án</span>
         </a>

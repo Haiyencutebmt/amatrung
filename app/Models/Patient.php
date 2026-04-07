@@ -39,4 +39,12 @@ class Patient extends Model
             default  => '—',
         };
     }
+
+    /**
+     * Lấy danh sách hồ sơ bệnh án của bệnh nhân.
+     */
+    public function medicalRecords()
+    {
+        return $this->hasMany(MedicalRecord::class);
+    }
 }

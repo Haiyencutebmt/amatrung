@@ -36,4 +36,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin,staff'])->group(function
 
     // Quản lý bệnh nhân
     Route::resource('patients', PatientController::class)->names('admin.patients');
+
+    // Quản lý Hồ sơ bệnh án
+    Route::resource('medical-records', \App\Http\Controllers\Admin\MedicalRecordController::class)->names('admin.medical-records');
 });
