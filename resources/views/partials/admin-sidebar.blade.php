@@ -34,15 +34,23 @@
             <span class="nav-icon">🌿</span>
             <span class="nav-label">Dược liệu</span>
         </a>
-        <a href="#"
-           class="nav-item {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
+        <a href="{{ route('admin.articles.index') }}"
+           class="nav-item {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">
             <span class="nav-icon">📝</span>
             <span class="nav-label">Bài viết</span>
         </a>
-        <a href="#"
+        <a href="{{ route('admin.comments.index') }}"
            class="nav-item {{ request()->routeIs('admin.comments.*') ? 'active' : '' }}">
             <span class="nav-icon">💬</span>
             <span class="nav-label">Bình luận</span>
+        </a>
+
+        <div style="height: 1px; background: #e4ddd2; margin: 12px 16px;"></div>
+
+        <a href="{{ route('admin.reports.index') }}"
+           class="nav-item {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Thống kê & Báo cáo</span>
         </a>
         <a href="#"
            class="nav-item {{ request()->routeIs('admin.accounts.*') ? 'active' : '' }}">

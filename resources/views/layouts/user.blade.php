@@ -427,8 +427,8 @@
                    class="nav-link {{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
                     🏠 Trang chủ
                 </a>
-                <a href="#" class="nav-link">📝 Bài viết</a>
-                <a href="#" class="nav-link">🌿 Dược liệu</a>
+                <a href="{{ route('user.articles.index') }}" class="nav-link {{ request()->routeIs('user.articles.*') ? 'active' : '' }}">📝 Bài viết</a>
+                <a href="{{ route('user.medicinal-herbs.index') }}" class="nav-link {{ request()->routeIs('user.medicinal-herbs.*') ? 'active' : '' }}">🌿 Từ điển Dược liệu</a>
                 <a href="#" class="nav-link">📞 Liên hệ</a>
 
                 {{-- User dropdown --}}
