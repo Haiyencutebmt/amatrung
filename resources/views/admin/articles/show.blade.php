@@ -5,10 +5,22 @@
 
 @include('admin.patients._form-styles')
 
-@section('content')
-    <div class="form-card">
 @section('styles')
 <style>
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-published { background: var(--accent-soft); color: var(--accent); }
+    .status-draft { background: var(--bg-page); color: var(--text-muted); }
+
     .article-header {
         display: flex;
         justify-content: space-between;
@@ -200,7 +212,5 @@
             <h4>Nội dung chi tiết</h4>
             <div class="content-body">{{ $article->content }}</div>
         </div>
-    </div>
-@endsection
     </div>
 @endsection

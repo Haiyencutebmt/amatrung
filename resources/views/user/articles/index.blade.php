@@ -10,11 +10,12 @@
     }
     .articles-header h1 {
         font-size: 32px;
-        color: #1a5632;
+        color: var(--primary);
+        font-weight: 800;
         margin-bottom: 10px;
     }
     .articles-header p {
-        color: #5a6b5e;
+        color: var(--text-muted);
         font-size: 16px;
     }
 
@@ -25,26 +26,27 @@
     }
 
     .article-card {
-        background: #fff;
-        border-radius: 16px;
+        background: var(--bg-card);
+        border-radius: var(--radius);
         overflow: hidden;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-        transition: transform 0.3s, box-shadow 0.3s;
-        border: 1px solid #e8e2d8;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        border: 1px solid var(--border);
         display: flex;
         flex-direction: column;
     }
 
     .article-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-soft);
     }
 
     .article-img {
         width: 100%;
         height: 200px;
         object-fit: cover;
-        background: #f0f7f1;
+        background: var(--bg-page);
     }
 
     .article-content {
@@ -56,7 +58,8 @@
 
     .article-meta {
         font-size: 13px;
-        color: #88998c;
+        color: var(--text-muted);
+        font-weight: 500;
         margin-bottom: 12px;
         display: flex;
         justify-content: space-between;
@@ -65,14 +68,24 @@
     .article-title {
         font-size: 20px;
         font-weight: 700;
-        color: #1a5632;
+        color: var(--text-main);
         margin-bottom: 12px;
         line-height: 1.4;
+    }
+    
+    .article-title a {
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+    
+    .article-title a:hover {
+        color: var(--primary);
     }
 
     .article-summary {
         font-size: 15px;
-        color: #5a6b5e;
+        color: var(--text-muted);
         line-height: 1.6;
         margin-bottom: 20px;
         flex: 1;
@@ -80,27 +93,28 @@
 
     .btn-read-more {
         display: inline-block;
-        padding: 10px 0;
-        color: #2f7d4a;
-        font-weight: 600;
+        padding: 12px 0;
+        color: var(--primary);
+        font-weight: 700;
         text-decoration: none;
-        border-top: 1px solid #f2ede5;
+        border-top: 1px solid var(--border);
         width: 100%;
         text-align: center;
-        transition: color 0.2s;
+        transition: var(--transition);
         margin-top: auto;
     }
     .btn-read-more:hover {
-        color: #1a5632;
+        color: var(--primary-hover);
+        background: var(--primary-soft);
     }
 
     .empty-state {
         text-align: center;
         padding: 60px 20px;
-        color: #5a6b5e;
-        background: #fff;
-        border-radius: 16px;
-        border: 1px solid #e8e2d8;
+        color: var(--text-muted);
+        background: var(--bg-card);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
     }
 </style>
 @endsection
@@ -127,7 +141,7 @@
                             <span>💬 {{ $article->comments_count }} bình luận</span>
                         </div>
                         <h2 class="article-title">
-                            <a href="{{ route('user.articles.show', $article->slug) }}" style="color:inherit;">{{ $article->title }}</a>
+                            <a href="{{ route('user.articles.show', $article->slug) }}">{{ $article->title }}</a>
                         </h2>
                         <p class="article-summary">{{ Str::limit($article->summary ?: strip_tags($article->content), 120) }}</p>
                         
@@ -144,7 +158,7 @@
         @endif
     @else
         <div class="empty-state">
-            <h2 style="font-size: 24px; color: #1a5632; margin-bottom: 10px;">Chưa có bài viết nào</h2>
+            <h2 style="font-size: 24px; color: var(--text-main); margin-bottom: 10px; font-weight: 800;">Chưa có bài viết nào</h2>
             <p>Phòng khám đang cập nhật các kiến thức y khoa. Vui lòng quay lại sau.</p>
         </div>
     @endif

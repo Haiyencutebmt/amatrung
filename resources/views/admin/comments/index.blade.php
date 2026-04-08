@@ -62,7 +62,7 @@
         letter-spacing: 0.5px;
     }
 
-    .status-approved { background: #ecfdf5; color: #10b981; }
+    .status-approved { background: var(--accent-soft); color: var(--accent); }
     .status-hidden { background: #fef2f2; color: #dc2626; }
 
     .action-btns {

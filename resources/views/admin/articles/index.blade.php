@@ -175,8 +175,8 @@
         letter-spacing: 0.5px;
     }
 
-    .status-published { background: #ecfdf5; color: #10b981; }
-    .status-draft { background: #f1f5f9; color: #64748b; }
+    .status-published { background: var(--accent-soft); color: var(--accent); }
+    .status-draft { background: var(--bg-page); color: var(--text-muted); }
 
     .article-thumb {
         width: 48px;
