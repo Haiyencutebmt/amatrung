@@ -6,63 +6,113 @@
 @include('admin.patients._form-styles')
 
 @section('styles')
-<style>
-    .items-wrapper {
-        margin-top: 30px;
-        border-top: 2px solid #e8f5e9;
-        padding-top: 20px;
-    }
-    .items-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    .items-table th {
-        background: #faf7f2;
-        padding: 12px;
-        text-align: left;
-        color: #5a6b5e;
-        font-weight: 600;
-        border-bottom: 2px solid #e8e2d8;
-    }
-    .items-table td {
-        padding: 12px;
-        border-bottom: 1px solid #f2ede5;
-        vertical-align: top;
-    }
-    .form-control-sm {
-        width: 100%;
-        padding: 8px 12px;
-        border: 1px solid #d9e4d8;
-        border-radius: 8px;
-        font-size: 14px;
-        font-family: inherit;
-    }
-    .btn-remove {
-        background: #ffebee;
-        color: #c62828;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    .btn-add-item {
-        background: #e8f5e9;
-        color: #1a5632;
-        border: 1px dashed #2f7d4a;
-        padding: 10px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        width: 100%;
-        text-align: center;
-        transition: 0.2s;
-    }
-    .btn-add-item:hover {
-        background: #c8e6c9;
-    }
-</style>
+    <style>
+        .items-wrapper {
+            margin-top: 40px;
+            border-top: 2px solid var(--primary-soft);
+            padding-top: 32px;
+        }
+
+        .items-wrapper h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .items-table th {
+            background: #f8fafc;
+            padding: 16px;
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .items-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+            background: #fff;
+        }
+
+        .items-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .form-control-sm {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            background: var(--bg-page);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-control-sm:focus {
+            background: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-soft);
+        }
+
+        .btn-remove {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fee2e2;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .btn-remove:hover {
+            background: #dc2626;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .btn-add-item {
+            background: var(--primary-soft);
+            color: var(--primary);
+            border: 2px dashed var(--primary);
+            padding: 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .btn-add-item:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -88,15 +138,17 @@
         <form action="{{ route('admin.prescriptions.update', $prescription) }}" method="POST" id="prescription-form">
             @csrf
             @method('PUT')
-            
+
             <div class="form-grid">
                 <div class="form-group full-width">
                     <label for="medical_record_id">Hồ sơ bệnh án & Bệnh nhân <span class="required">*</span></label>
-                    <select name="medical_record_id" id="medical_record_id" class="form-control @error('medical_record_id') is-invalid @enderror" required>
+                    <select name="medical_record_id" id="medical_record_id"
+                        class="form-control @error('medical_record_id') is-invalid @enderror" required>
                         <option value="">-- Chọn hồ sơ bệnh án --</option>
                         @foreach($records as $record)
                             <option value="{{ $record->id }}" {{ old('medical_record_id', $prescription->medical_record_id) == $record->id ? 'selected' : '' }}>
-                                {{ $record->record_code }} - {{ $record->patient->full_name }} (Khám ngày: {{ $record->visit_date->format('d/m/Y') }})
+                                {{ $record->record_code }} - {{ $record->patient->full_name }} (Khám ngày:
+                                {{ $record->visit_date->format('d/m/Y') }})
                             </option>
                         @endforeach
                     </select>
@@ -104,34 +156,43 @@
 
                 <div class="form-group">
                     <label for="prescribed_date">Ngày kê đơn <span class="required">*</span></label>
-                    <input type="date" id="prescribed_date" name="prescribed_date" value="{{ old('prescribed_date', $prescription->prescribed_date->format('Y-m-d')) }}" 
-                           class="form-control @error('prescribed_date') is-invalid @enderror" required>
+                    <input type="date" id="prescribed_date" name="prescribed_date"
+                        value="{{ old('prescribed_date', $prescription->prescribed_date->format('Y-m-d')) }}"
+                        class="form-control @error('prescribed_date') is-invalid @enderror" required>
                 </div>
 
                 <div class="form-group">
                     <label for="status">Trạng thái <span class="required">*</span></label>
                     <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
-                        <option value="active" {{ old('status', $prescription->status) == 'active' ? 'selected' : '' }}>Đang sử dụng</option>
-                        <option value="completed" {{ old('status', $prescription->status) == 'completed' ? 'selected' : '' }}>Hoàn thành</option>
-                        <option value="cancelled" {{ old('status', $prescription->status) == 'cancelled' ? 'selected' : '' }}>Đã hủy</option>
+                        <option value="active" {{ old('status', $prescription->status) == 'active' ? 'selected' : '' }}>Đang
+                            sử dụng</option>
+                        <option value="completed" {{ old('status', $prescription->status) == 'completed' ? 'selected' : '' }}>
+                            Hoàn thành</option>
+                        <option value="cancelled" {{ old('status', $prescription->status) == 'cancelled' ? 'selected' : '' }}>
+                            Đã hủy</option>
                     </select>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="usage_instruction">Hướng dẫn sử dụng chung (Cách sắc, uống)</label>
-                    <textarea id="usage_instruction" name="usage_instruction" class="form-control @error('usage_instruction') is-invalid @enderror" placeholder="Ví dụ: Sắc 3 bát nước còn 1 bát...">{{ old('usage_instruction', $prescription->usage_instruction) }}</textarea>
+                    <textarea id="usage_instruction" name="usage_instruction"
+                        class="form-control @error('usage_instruction') is-invalid @enderror"
+                        placeholder="Ví dụ: Sắc 3 bát nước còn 1 bát...">{{ old('usage_instruction', $prescription->usage_instruction) }}</textarea>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="general_note">Ghi chú, lời dặn riêng</label>
-                    <textarea id="general_note" name="general_note" class="form-control @error('general_note') is-invalid @enderror" placeholder="Ví dụ: Kiêng đồ tanh, cay nóng...">{{ old('general_note', $prescription->general_note) }}</textarea>
+                    <textarea id="general_note" name="general_note"
+                        class="form-control @error('general_note') is-invalid @enderror"
+                        placeholder="Ví dụ: Kiêng đồ tanh, cay nóng...">{{ old('general_note', $prescription->general_note) }}</textarea>
                 </div>
             </div>
 
             <div class="items-wrapper">
                 <h3>Chi tiết các vị thuốc <span class="required">*</span></h3>
-                <p style="color: #5a6b5e; font-size: 14px; margin-bottom: 15px;">Tổng số vị hiện có: <span id="total-items">0</span></p>
-                
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 15px;">Tổng số vị hiện có: <span
+                        id="total-items">0</span></p>
+
                 <table class="items-table" id="items-table">
                     <thead>
                         <tr>
@@ -144,30 +205,36 @@
                     </thead>
                     <tbody id="items-body">
                         @foreach($prescription->items as $index => $pItem)
-                        <tr>
-                            <td>
-                                <select name="items[{{ $index }}][medicinal_herb_id]" class="form-control-sm herb-select" required onchange="updateUnit(this)">
-                                    <option value="">-- Chọn --</option>
-                                    @foreach($herbs as $herb)
-                                        <option value="{{ $herb->id }}" data-unit="{{ $herb->unit }}" data-stock="{{ floatval($herb->quantity_in_stock) }}" {{ $pItem->medicinal_herb_id == $herb->id ? 'selected' : '' }}>
-                                            {{ $herb->name }} (Tồn: {{ floatval($herb->quantity_in_stock) }})
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number" name="items[{{ $index }}][quantity]" class="form-control-sm" value="{{ floatval($pItem->quantity) }}" step="0.01" min="0.01" required placeholder="0.0">
-                            </td>
-                            <td>
-                                <input type="text" name="items[{{ $index }}][unit]" class="form-control-sm unit-input" value="{{ $pItem->unit }}" placeholder="Đơn vị">
-                            </td>
-                            <td>
-                                <input type="text" name="items[{{ $index }}][instruction]" class="form-control-sm" value="{{ $pItem->instruction }}" placeholder="Gói riêng, sắc sau...">
-                            </td>
-                            <td>
-                                <button type="button" class="btn-remove" onclick="removeRow(this)">🗑</button>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <select name="items[{{ $index }}][medicinal_herb_id]" class="form-control-sm herb-select"
+                                        required onchange="updateUnit(this)">
+                                        <option value="">-- Chọn --</option>
+                                        @foreach($herbs as $herb)
+                                            <option value="{{ $herb->id }}" data-unit="{{ $herb->unit }}"
+                                                data-stock="{{ floatval($herb->quantity_in_stock) }}" {{ $pItem->medicinal_herb_id == $herb->id ? 'selected' : '' }}>
+                                                {{ $herb->name }} (Tồn: {{ floatval($herb->quantity_in_stock) }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" name="items[{{ $index }}][quantity]" class="form-control-sm"
+                                        value="{{ floatval($pItem->quantity) }}" step="0.01" min="0.01" required
+                                        placeholder="0.0">
+                                </td>
+                                <td>
+                                    <input type="text" name="items[{{ $index }}][unit]" class="form-control-sm unit-input"
+                                        value="{{ $pItem->unit }}" placeholder="Đơn vị">
+                                </td>
+                                <td>
+                                    <input type="text" name="items[{{ $index }}][instruction]" class="form-control-sm"
+                                        value="{{ $pItem->instruction }}" placeholder="Gói riêng, sắc sau...">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn-remove" onclick="removeRow(this)">🗑</button>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -189,23 +256,27 @@
     <template id="item-template">
         <tr>
             <td>
-                <select name="items[INDEX][medicinal_herb_id]" class="form-control-sm herb-select" required onchange="updateUnit(this)">
+                <select name="items[INDEX][medicinal_herb_id]" class="form-control-sm herb-select" required
+                    onchange="updateUnit(this)">
                     <option value="">-- Chọn --</option>
                     @foreach($herbs as $herb)
-                        <option value="{{ $herb->id }}" data-unit="{{ $herb->unit }}" data-stock="{{ floatval($herb->quantity_in_stock) }}">
+                        <option value="{{ $herb->id }}" data-unit="{{ $herb->unit }}"
+                            data-stock="{{ floatval($herb->quantity_in_stock) }}">
                             {{ $herb->name }} (Tồn: {{ floatval($herb->quantity_in_stock) }})
                         </option>
                     @endforeach
                 </select>
             </td>
             <td>
-                <input type="number" name="items[INDEX][quantity]" class="form-control-sm" step="0.01" min="0.01" required placeholder="0.0">
+                <input type="number" name="items[INDEX][quantity]" class="form-control-sm" step="0.01" min="0.01" required
+                    placeholder="0.0">
             </td>
             <td>
                 <input type="text" name="items[INDEX][unit]" class="form-control-sm unit-input" placeholder="Đơn vị">
             </td>
             <td>
-                <input type="text" name="items[INDEX][instruction]" class="form-control-sm" placeholder="Gói riêng, sắc sau...">
+                <input type="text" name="items[INDEX][instruction]" class="form-control-sm"
+                    placeholder="Gói riêng, sắc sau...">
             </td>
             <td>
                 <button type="button" class="btn-remove" onclick="removeRow(this)">🗑</button>
@@ -216,41 +287,41 @@
 @endsection
 
 @section('scripts')
-<script>
-    let itemIndex = {{ $prescription->items->count() }};
+    <script>
+        let itemIndex = {{ $prescription->items->count() }};
 
-    function addItemRow() {
-        const tbody = document.getElementById('items-body');
-        const template = document.getElementById('item-template').innerHTML;
-        const html = template.replace(/INDEX/g, itemIndex++);
-        tbody.insertAdjacentHTML('beforeend', html);
-        updateTotal();
-    }
-
-    function removeRow(btn) {
-        btn.closest('tr').remove();
-        updateTotal();
-    }
-
-    function updateUnit(select) {
-        const option = select.options[select.selectedIndex];
-        const unit = option.getAttribute('data-unit');
-        const row = select.closest('tr');
-        if (unit) {
-            row.querySelector('.unit-input').value = unit;
+        function addItemRow() {
+            const tbody = document.getElementById('items-body');
+            const template = document.getElementById('item-template').innerHTML;
+            const html = template.replace(/INDEX/g, itemIndex++);
+            tbody.insertAdjacentHTML('beforeend', html);
+            updateTotal();
         }
-    }
 
-    function updateTotal() {
-        const rows = document.querySelectorAll('#items-body tr').length;
-        document.getElementById('total-items').innerText = rows;
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        updateTotal();
-        if (document.querySelectorAll('#items-body tr').length === 0) {
-            addItemRow();
+        function removeRow(btn) {
+            btn.closest('tr').remove();
+            updateTotal();
         }
-    });
-</script>
+
+        function updateUnit(select) {
+            const option = select.options[select.selectedIndex];
+            const unit = option.getAttribute('data-unit');
+            const row = select.closest('tr');
+            if (unit) {
+                row.querySelector('.unit-input').value = unit;
+            }
+        }
+
+        function updateTotal() {
+            const rows = document.querySelectorAll('#items-body tr').length;
+            document.getElementById('total-items').innerText = rows;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateTotal();
+            if (document.querySelectorAll('#items-body tr').length === 0) {
+                addItemRow();
+            }
+        });
+    </script>
 @endsection

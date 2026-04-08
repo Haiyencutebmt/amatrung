@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
             size: A4;
             margin: 20mm;
         }
+
         body {
             font-family: 'Times New Roman', Times, serif;
             color: #000;
@@ -17,93 +19,146 @@
             padding: 0;
             background: #fff;
         }
+
+        /* Use Be Vietnam Pro for screen view */
+        @media screen {
+            body {
+                font-family: 'Be Vietnam Pro', sans-serif;
+                background: var(--bg-page, #f8fafc);
+            }
+
+            .print-container {
+                background: #fff;
+                padding: 40px;
+                margin-top: 20px;
+                margin-bottom: 40px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+            }
+        }
+
         .print-container {
             max-width: 800px;
             margin: 0 auto;
         }
+
         .header {
             text-align: center;
             border-bottom: 2px solid #000;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
+
         .header h1 {
             margin: 0;
             font-size: 24px;
             text-transform: uppercase;
             font-weight: bold;
+            color: #1a5632;
+            /* Keep herbal green for header even in print */
         }
+
         .header p {
             margin: 5px 0 0 0;
             font-size: 14px;
         }
+
         .prescription-title {
             text-align: center;
             font-size: 22px;
             font-weight: bold;
             margin: 20px 0;
             text-transform: uppercase;
+            color: #000;
         }
+
         .info-section {
             margin-bottom: 20px;
         }
+
         .info-row {
             display: flex;
             margin-bottom: 5px;
         }
+
         .info-label {
             min-width: 150px;
             font-weight: bold;
         }
+
         .items-title {
             font-weight: bold;
             font-size: 18px;
             margin: 15px 0 10px;
             text-transform: uppercase;
         }
+
         .items-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        .items-table th, .items-table td {
+
+        .items-table th,
+        .items-table td {
             border: 1px dotted #666;
             padding: 8px;
             text-align: left;
         }
+
         .items-table th {
             font-weight: bold;
             text-align: center;
+            background: #f9f9f9;
         }
+
         .items-table .text-center {
             text-align: center;
         }
+
         .notes-section {
             margin-bottom: 30px;
         }
+
         .notes-section h4 {
             margin: 0 0 5px 0;
+            color: #1a5632;
         }
+
         .footer-signatures {
             display: flex;
             justify-content: space-between;
             margin-top: 40px;
         }
+
         .signature-box {
             text-align: center;
             width: 250px;
         }
+
         .signature-date {
             font-style: italic;
             margin-bottom: 10px;
         }
+
         .signature-space {
             height: 100px;
         }
-        
+
         @media print {
             .no-print {
                 display: none !important;
+            }
+
+            .print-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            body {
+                font-family: 'Times New Roman', Times, serif;
             }
         }
 
@@ -111,18 +166,29 @@
             text-align: center;
             margin: 20px 0;
         }
+
         .btn-print {
-            padding: 10px 20px;
-            background: #1a5632;
+            padding: 12px 24px;
+            background: #2563eb;
+            /* Theme primary for screen */
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            font-family: Arial, sans-serif;
+            font-family: inherit;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-print:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
         }
     </style>
 </head>
+
 <body>
     <div class="no-print print-btn-wrapper">
         <button class="btn-print" onclick="window.print()">🖨 Nhấn vào đây để In Đơn Thuốc</button>
@@ -152,7 +218,8 @@
             </div>
             <div class="info-row">
                 <div class="info-label">Họ tên bệnh nhân:</div>
-                <div style="flex-grow: 1; text-transform: uppercase;"><strong>{{ $prescription->medicalRecord->patient->full_name }}</strong></div>
+                <div style="flex-grow: 1; text-transform: uppercase;">
+                    <strong>{{ $prescription->medicalRecord->patient->full_name }}</strong></div>
                 <div style="margin-left: 20px;">SĐT: {{ $prescription->medicalRecord->patient->phone }}</div>
             </div>
             <div class="info-row">
@@ -174,12 +241,12 @@
             </thead>
             <tbody>
                 @foreach($prescription->items as $index => $item)
-                <tr>
-                    <td class="text-center">{{ $index + 1 }}</td>
-                    <td><strong>{{ $item->herb->name }}</strong></td>
-                    <td class="text-center">{{ floatval($item->quantity) }} {{ $item->unit }}</td>
-                    <td>{{ $item->instruction ?: '' }}</td>
-                </tr>
+                    <tr>
+                        <td class="text-center">{{ $index + 1 }}</td>
+                        <td><strong>{{ $item->herb->name }}</strong></td>
+                        <td class="text-center">{{ floatval($item->quantity) }} {{ $item->unit }}</td>
+                        <td>{{ $item->instruction ?: '' }}</td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -188,7 +255,7 @@
         <div class="notes-section">
             <h4>Hướng dẫn sử dụng chung:</h4>
             <p>{{ $prescription->usage_instruction ?: 'Theo chỉ dẫn của thầy thuốc.' }}</p>
-            
+
             @if($prescription->general_note)
                 <h4 style="margin-top: 15px;">Lời dặn:</h4>
                 <p>{{ $prescription->general_note }}</p>
@@ -203,21 +270,24 @@
                 <div>__________________</div>
             </div>
             <div class="signature-box">
-                <div class="signature-date">Ngày {{ $prescription->prescribed_date->format('d') }} tháng {{ $prescription->prescribed_date->format('m') }} năm {{ $prescription->prescribed_date->format('Y') }}</div>
+                <div class="signature-date">Ngày {{ $prescription->prescribed_date->format('d') }} tháng
+                    {{ $prescription->prescribed_date->format('m') }} năm
+                    {{ $prescription->prescribed_date->format('Y') }}</div>
                 <div><strong>Thầy thuốc kê đơn</strong></div>
                 <div class="signature-space"></div>
                 <div>__________________</div>
             </div>
         </div>
     </div>
-    
+
     <!-- Auto trigger print dialog on page load -->
     <script>
-        window.addEventListener('load', function() {
-            setTimeout(function() {
+        window.addEventListener('load', function () {
+            setTimeout(function () {
                 window.print();
             }, 500);
         });
     </script>
 </body>
+
 </html>
