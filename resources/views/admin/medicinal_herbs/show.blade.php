@@ -4,140 +4,170 @@
 @section('page-title', 'Chi tiết Dược liệu')
 
 @section('styles')
-    <style>
-        .detail-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 36px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e8e2d8;
-            max-width: 900px;
-        }
+<style>
+    .detail-card {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        padding: 48px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+        max-width: 900px;
+        margin: 0 auto;
+        animation: fadeInUp 0.5s ease-out;
+    }
 
-        .detail-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #e8f5e9;
-        }
+    .detail-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--primary-soft);
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
-        .detail-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a5632;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .detail-header h2 {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        letter-spacing: -1px;
+    }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
 
-        .status-available { background: #e3f2fd; color: #1565c0; }
-        .status-out_of_stock { background: #ffebee; color: #c62828; }
-        .status-discontinued { background: #eeeeee; color: #616161; }
+    .status-available { background: #eff6ff; color: #2563eb; }
+    .status-out_of_stock { background: #fef2f2; color: #dc2626; }
+    .status-discontinued { background: #f1f5f9; color: #64748b; }
 
-        .header-actions {
-            display: flex;
-            gap: 12px;
-        }
+    .header-actions {
+        display: flex;
+        gap: 12px;
+    }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.15s;
-            border: 1px solid transparent;
-            cursor: pointer;
-        }
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: var(--transition);
+        border: 1px solid transparent;
+    }
 
-        .btn-default {
-            background: #faf7f2;
-            color: #5a6b5e;
-            border-color: #e8e2d8;
-        }
-        .btn-default:hover { background: #f0ebe3; color: #2d3a2e; }
+    .btn-edit {
+        background: var(--primary-soft);
+        color: var(--primary);
+    }
+    .btn-edit:hover {
+        background: var(--primary);
+        color: #fff;
+        transform: translateY(-2px);
+    }
 
-        .btn-primary {
-            background: #e8f5e9;
-            color: #1a5632;
-        }
-        .btn-primary:hover { background: #c8e6c9; }
+    .btn-back {
+        background: var(--bg-page);
+        color: var(--text-muted);
+        border-color: var(--border);
+    }
+    .btn-back:hover {
+        background: #fff;
+        color: var(--primary);
+        border-color: var(--primary);
+        transform: translateX(-4px);
+    }
 
-        /* Detail grid */
-        .info-section {
-            margin-bottom: 30px;
-        }
+    /* Detail grid */
+    .info-section {
+        margin-top: 32px;
+    }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
 
-        .info-item {
-            margin-bottom: 12px;
-        }
+    .info-item {
+        margin-bottom: 0;
+    }
 
-        .info-item.full-width {
-            grid-column: 1 / -1;
-        }
+    .info-item.full-width {
+        grid-column: 1 / -1;
+    }
 
-        .info-label {
-            display: block;
-            font-size: 13px;
-            color: #5a6b5e;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
+    .info-label {
+        display: block;
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
 
-        .info-value {
-            font-size: 16px;
-            color: #2d3a2e;
-            font-weight: 500;
-            line-height: 1.5;
-            background: #faf7f2;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border: 1px solid #f2ede5;
-            white-space: pre-wrap;
-        }
-        
-        .alert-box {
-            background: #fff3e0;
-            border-left: 4px solid #ff9800;
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            color: #e65100;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-        }
+    .info-value {
+        font-size: 17px;
+        color: var(--text-main);
+        font-weight: 700;
+        line-height: 1.6;
+        background: var(--bg-page);
+        padding: 18px 24px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        white-space: pre-wrap;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .alert-box {
+        background: #fff7ed;
+        border: 1px solid #ffedd5;
+        padding: 20px 24px;
+        border-radius: 16px;
+        margin-bottom: 32px;
+        color: #ea580c;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(234, 88, 12, 0.05);
+    }
 
-        .alert-danger {
-            background: #ffebee;
-            border-color: #f44336;
-            color: #c62828;
-        }
-    </style>
+    .alert-danger {
+        background: #fef2f2;
+        border-color: #fee2e2;
+        color: #dc2626;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.05);
+    }
+
+    .alert-icon {
+        font-size: 24px;
+    }
+
+    @media (max-width: 768px) {
+        .detail-card { padding: 32px 20px; }
+        .info-grid { grid-template-columns: 1fr; }
+        .detail-header { flex-direction: column; align-items: flex-start; }
+        .header-actions { width: 100%; }
+        .btn-action { flex: 1; justify-content: center; }
+    }
+</style>
+@endsection
 @endsection
 
 @section('content')
@@ -156,28 +186,28 @@
                 </span>
             </h2>
             <div class="header-actions">
-                <a href="{{ route('admin.medicinal-herbs.edit', $medicinalHerb) }}" class="btn btn-primary">✏️ Cập nhật</a>
-                <a href="{{ route('admin.medicinal-herbs.index') }}" class="btn btn-default">Quay lại</a>
+                <a href="{{ route('admin.medicinal-herbs.edit', $medicinalHerb) }}" class="btn-action btn-edit">✏️ Cập nhật</a>
+                <a href="{{ route('admin.medicinal-herbs.index') }}" class="btn-action btn-back">Quay lại</a>
             </div>
         </div>
 
         @if($medicinalHerb->quantity_in_stock == 0 && $medicinalHerb->status != 'discontinued')
             <div class="alert-box alert-danger">
-                🚨 Cảnh báo: Dược liệu này đã hết hàng trong kho! Cần nhập thêm.
+                <span class="alert-icon">🚨</span> Cảnh báo: Dược liệu này đã hết hàng trong kho! Cần nhập thêm.
             </div>
         @elseif($medicinalHerb->quantity_in_stock > 0 && $medicinalHerb->quantity_in_stock <= 10)
             <div class="alert-box">
-                ⚠️ Cảnh báo: Số lượng dược liệu trong kho sắp hết (Chỉ còn {{ floatval($medicinalHerb->quantity_in_stock) }} {{ $medicinalHerb->unit }}).
+                <span class="alert-icon">⚠️</span> Cảnh báo: Số lượng dược liệu trong kho sắp hết (Chỉ còn {{ floatval($medicinalHerb->quantity_in_stock) }} {{ $medicinalHerb->unit }}).
             </div>
         @endif
 
         @if($medicinalHerb->expiry_date && $medicinalHerb->expiry_date->isPast())
             <div class="alert-box alert-danger">
-                🚨 Cảnh báo: Dược liệu này đã hết hạn sử dụng! (Hết hạn vào {{ $medicinalHerb->expiry_date->format('d/m/Y') }})
+                <span class="alert-icon">🚨</span> Cảnh báo: Dược liệu này đã hết hạn sử dụng! (Hết hạn vào {{ $medicinalHerb->expiry_date->format('d/m/Y') }})
             </div>
         @elseif($medicinalHerb->expiry_date && $medicinalHerb->expiry_date->diffInDays(now()) <= 30)
             <div class="alert-box">
-                ⚠️ Cảnh báo: Dược liệu sắp hết hạn trong vòng {{ intval($medicinalHerb->expiry_date->diffInDays(now())) }} ngày.
+                <span class="alert-icon">⚠️</span> Cảnh báo: Dược liệu sắp hết hạn trong vòng {{ intval($medicinalHerb->expiry_date->diffInDays(now())) }} ngày.
             </div>
         @endif
 

@@ -1,57 +1,64 @@
 {{-- Form bệnh nhân dùng chung cho create và edit --}}
 @section('styles')
+@section('styles')
+<style>
     .form-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 36px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid #e8e2d8;
-        max-width: 800px;
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        padding: 48px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+        max-width: 900px;
+        margin: 0 auto;
+        animation: fadeInUp 0.5s ease-out;
     }
 
     .form-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 28px;
-        padding-bottom: 16px;
-        border-bottom: 2px solid #e8f5e9;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--primary-soft);
     }
 
     .form-header h2 {
-        font-size: 22px;
-        font-weight: 700;
-        color: #1a5632;
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text-main);
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
+        letter-spacing: -1px;
     }
 
     .btn-back {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
         padding: 10px 20px;
-        background: #faf7f2;
-        color: #5a6b5e;
-        border: 1px solid #e8e2d8;
-        border-radius: 10px;
+        background: var(--bg-page);
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        border-radius: 12px;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
         text-decoration: none;
-        transition: all 0.15s;
+        transition: var(--transition);
         font-family: inherit;
     }
 
     .btn-back:hover {
-        background: #f0ebe3;
-        color: #2d3a2e;
+        background: #fff;
+        color: var(--primary);
+        border-color: var(--primary);
+        transform: translateX(-4px);
     }
 
     .form-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 28px;
     }
 
     .form-grid .full-width {
@@ -65,9 +72,9 @@
     .form-group label {
         display: block;
         font-size: 15px;
-        font-weight: 600;
-        color: #2d3a2e;
-        margin-bottom: 8px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 10px;
     }
 
     .form-group label .required {
@@ -76,126 +83,141 @@
 
     .form-control {
         width: 100%;
-        padding: 13px 16px;
-        border: 1px solid #d9e4d8;
-        border-radius: 12px;
+        padding: 14px 18px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
         font-size: 16px;
         font-family: inherit;
-        color: #2d3a2e;
+        color: var(--text-main);
         outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
-        background: #ffffff;
+        transition: var(--transition);
+        background: var(--bg-page);
+        font-weight: 500;
     }
 
     .form-control:focus {
-        border-color: #2f7d4a;
-        box-shadow: 0 0 0 3px rgba(47, 125, 74, 0.1);
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px var(--primary-soft);
+    }
+
+    .form-control::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
     }
 
     .form-control.is-invalid {
         border-color: #dc2626;
-        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
+        background-color: #fef2f2;
     }
 
     select.form-control {
         appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a6b5e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
-        background-position: right 14px center;
-        padding-right: 36px;
+        background-position: right 18px center;
+        padding-right: 48px;
+        cursor: pointer;
     }
 
     textarea.form-control {
         resize: vertical;
-        min-height: 90px;
+        min-height: 120px;
+        line-height: 1.6;
     }
 
     .invalid-feedback {
         font-size: 13px;
         color: #dc2626;
-        margin-top: 6px;
+        margin-top: 8px;
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
+        font-weight: 600;
     }
 
     .form-actions {
-        margin-top: 28px;
-        padding-top: 20px;
-        border-top: 1px solid #f2ede5;
+        margin-top: 40px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
         display: flex;
-        gap: 12px;
+        gap: 16px;
     }
 
     .btn-submit {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 14px 32px;
-        background: #2f7d4a;
+        gap: 10px;
+        padding: 16px 40px;
+        background: var(--primary);
         color: white;
         border: none;
-        border-radius: 12px;
+        border-radius: 14px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         font-family: inherit;
-        transition: background 0.2s, transform 0.15s;
+        transition: var(--transition);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
     }
 
     .btn-submit:hover {
-        background: #1a5632;
-        transform: translateY(-1px);
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
     }
 
     .btn-cancel {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 14px 28px;
-        background: #faf7f2;
-        color: #5a6b5e;
-        border: 1px solid #e8e2d8;
-        border-radius: 12px;
+        gap: 10px;
+        padding: 16px 32px;
+        background: #fff;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        border-radius: 14px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         text-decoration: none;
         font-family: inherit;
-        transition: all 0.15s;
+        transition: var(--transition);
     }
 
     .btn-cancel:hover {
-        background: #f0ebe3;
-        color: #2d3a2e;
+        background: var(--bg-page);
+        color: var(--text-main);
+        border-color: var(--text-muted);
     }
 
     /* Error summary */
     .error-summary {
-        background: #fff5f5;
+        background: #fef2f2;
         border: 1px solid #fecaca;
-        border-radius: 12px;
-        padding: 16px 20px;
-        margin-bottom: 24px;
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 32px;
         color: #b91c1c;
         font-size: 15px;
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.05);
     }
 
     .error-summary ul {
-        margin: 8px 0 0;
-        padding-left: 20px;
+        margin: 12px 0 0;
+        padding-left: 24px;
     }
 
     .error-summary li {
-        margin-bottom: 4px;
+        margin-bottom: 6px;
+        font-weight: 500;
     }
 
-    @media (max-width: 600px) {
-        .form-grid {
-            grid-template-columns: 1fr;
-        }
-        .form-card {
-            padding: 24px 18px;
-        }
+    @media (max-width: 768px) {
+        .form-card { padding: 32px 20px; }
+        .form-grid { grid-template-columns: 1fr; gap: 20px; }
+        .form-actions { flex-direction: column; }
+        .btn-submit, .btn-cancel { width: 100%; justify-content: center; }
     }
+</style>
+@endsection
 @endsection

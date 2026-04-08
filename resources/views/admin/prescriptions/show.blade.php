@@ -4,159 +4,238 @@
 @section('page-title', 'Chi tiết Đơn thuốc')
 
 @section('styles')
-    <style>
-        .detail-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 36px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e8e2d8;
-            max-width: 900px;
-        }
+<style>
+    .detail-card {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        padding: 48px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+        max-width: 1000px;
+        margin: 0 auto;
+        animation: fadeInUp 0.5s ease-out;
+    }
 
-        .detail-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #e8f5e9;
-        }
+    .detail-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--primary-soft);
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
-        .detail-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a5632;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .detail-header h2 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        letter-spacing: -0.5px;
+    }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
 
-        .status-active { background: #e3f2fd; color: #1565c0; }
-        .status-completed { background: #e8f5e9; color: #2e7d32; }
-        .status-cancelled { background: #ffebee; color: #c62828; }
+    .status-active { background: #eff6ff; color: #2563eb; }
+    .status-completed { background: #ecfdf5; color: #10b981; }
+    .status-cancelled { background: #fef2f2; color: #dc2626; }
 
-        .header-actions {
-            display: flex;
-            gap: 12px;
-        }
+    .header-actions {
+        display: flex;
+        gap: 12px;
+    }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.15s;
-            border: 1px solid transparent;
-            cursor: pointer;
-        }
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: var(--transition);
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-family: inherit;
+    }
 
-        .btn-default {
-            background: #faf7f2;
-            color: #5a6b5e;
-            border-color: #e8e2d8;
-        }
-        .btn-default:hover { background: #f0ebe3; color: #2d3a2e; }
+    .btn-print { background: #fff7ed; color: #ea580c; border-color: #ffedd5; }
+    .btn-print:hover { background: #ea580c; color: #fff; transform: translateY(-2px); }
 
-        .btn-primary {
-            background: #e8f5e9;
-            color: #1a5632;
-        }
-        .btn-primary:hover { background: #c8e6c9; }
+    .btn-edit { background: var(--primary-soft); color: var(--primary); }
+    .btn-edit:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
 
-        /* Detail grid */
-        .info-section {
-            margin-bottom: 30px;
-        }
+    .btn-back { background: var(--bg-page); color: var(--text-muted); border-color: var(--border); }
+    .btn-back:hover { background: #fff; color: var(--primary); border-color: var(--primary); transform: translateX(-4px); }
 
-        .info-section h3 {
-            font-size: 18px;
-            color: #1a5632;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #f2ede5;
-        }
+    .info-section {
+        margin-bottom: 40px;
+    }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
+    .info-section h3 {
+        font-size: 18px;
+        color: var(--primary);
+        margin-bottom: 20px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-        .info-item {
-            margin-bottom: 12px;
-        }
+    .info-section h3::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--primary-soft);
+    }
 
-        .info-item.full-width {
-            grid-column: 1 / -1;
-        }
+    .record-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--primary-soft);
+        padding: 24px 32px;
+        border-radius: 20px;
+        margin-bottom: 32px;
+        border: 2px solid var(--border);
+        gap: 20px;
+    }
 
-        .info-label {
-            display: block;
-            font-size: 13px;
-            color: #5a6b5e;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
+    .record-info strong {
+        font-size: 20px;
+        color: var(--primary);
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 800;
+    }
 
-        .info-value {
-            font-size: 16px;
-            color: #2d3a2e;
-            font-weight: 500;
-            line-height: 1.5;
-            background: #faf7f2;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border: 1px solid #f2ede5;
-            white-space: pre-wrap;
-        }
+    .record-info span {
+        font-size: 16px;
+        color: var(--text-main);
+        font-weight: 600;
+    }
 
-        /* Medical Record box */
-        .record-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #e8f5e9;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #c8e6c9;
-        }
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+    }
 
-        .record-info strong {
-            font-size: 18px;
-            color: #1a5632;
-            display: block;
-            margin-bottom: 4px;
-        }
+    .info-item.full-width {
+        grid-column: 1 / -1;
+    }
 
-        .record-info span {
-            color: #2d3a2e;
-        }
-    </style>
+    .info-label {
+        display: block;
+        font-size: 12px;
+        color: var(--text-muted);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .info-value {
+        font-size: 17px;
+        color: var(--text-main);
+        font-weight: 700;
+        line-height: 1.6;
+        background: var(--bg-page);
+        padding: 18px 24px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        white-space: pre-wrap;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .items-table-wrapper {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+    }
+
+    .items-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .items-table thead th {
+        background: #f8fafc;
+        padding: 16px 20px;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid var(--border);
+        text-align: left;
+    }
+
+    .items-table tbody td {
+        padding: 18px 20px;
+        font-size: 16px;
+        color: var(--text-main);
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+    }
+
+    .items-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .herb-name {
+        font-weight: 800;
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .herb-name:hover {
+        text-decoration: underline;
+    }
+
+    .quantity-badge {
+        background: var(--accent-hover);
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .detail-card { padding: 32px 20px; }
+        .record-box { flex-direction: column; align-items: stretch; text-align: center; }
+        .info-grid { grid-template-columns: 1fr; }
+        .btn-action { width: 100%; justify-content: center; }
+    }
+</style>
+@endsection
 @endsection
 
 @section('content')
     <div class="detail-card">
         <div class="detail-header">
             <h2>
-                Mã đơn thuốc: {{ $prescription->prescription_code }}
+                <span style="color: var(--primary);">📄</span> Đơn thuốc: {{ $prescription->prescription_code }}
                 <span class="status-badge status-{{ $prescription->status }}">
                     @if($prescription->status == 'active')
                         Đang sử dụng
@@ -168,9 +247,9 @@
                 </span>
             </h2>
             <div class="header-actions">
-                <a href="{{ route('admin.prescriptions.print', $prescription) }}" target="_blank" class="btn" style="background:#fff3e0; color:#e65100; border-color:#ffe0b2;">🖨 In đơn</a>
-                <a href="{{ route('admin.prescriptions.edit', $prescription) }}" class="btn btn-primary">✏️ Sửa đơn</a>
-                <a href="{{ route('admin.prescriptions.index') }}" class="btn btn-default">Quay lại</a>
+                <a href="{{ route('admin.prescriptions.print', $prescription) }}" target="_blank" class="btn-action btn-print">🖨 In đơn</a>
+                <a href="{{ route('admin.prescriptions.edit', $prescription) }}" class="btn-action btn-edit">✏️ Sửa đơn</a>
+                <a href="{{ route('admin.prescriptions.index') }}" class="btn-action btn-back">Quay lại</a>
             </div>
         </div>
 
@@ -181,7 +260,7 @@
                     <strong>Hồ sơ: {{ $prescription->medicalRecord->record_code }}</strong>
                     <span>Bệnh nhân: {{ $prescription->medicalRecord->patient->full_name }} | Khám ngày: {{ $prescription->medicalRecord->visit_date->format('d/m/Y') }}</span>
                 </div>
-                <a href="{{ route('admin.medical-records.show', $prescription->medical_record_id) }}" class="btn btn-default" style="background:#fff;">📋 Xem hồ sơ gốc</a>
+                <a href="{{ route('admin.medical-records.show', $prescription->medical_record_id) }}" class="btn-action btn-back" style="background:#fff;">📋 Xem hồ sơ gốc</a>
             </div>
         </div>
 
@@ -209,33 +288,37 @@
             </div>
         </div>
 
-        <div class="info-section" style="margin-top: 40px;">
-            <h3>Chi tiết các vị thuốc (Tổng cộng: {{ $prescription->items->count() }} vị)</h3>
-            <div style="background: #ffffff; border: 1px solid #d9e4d8; border-radius: 12px; overflow: hidden;">
-                <table style="width: 100%; border-collapse: collapse;">
+        <div class="info-section">
+            <h3>Chi tiết các vị thuốc ({{ $prescription->items->count() }} vị)</h3>
+            <div class="items-table-wrapper">
+                <table class="items-table">
                     <thead>
-                        <tr style="background: #faf7f2; border-bottom: 2px solid #e8e2d8;">
-                            <th style="text-align: left; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">STT</th>
-                            <th style="text-align: left; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">Tên Vị Thuốc</th>
-                            <th style="text-align: center; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">Số lượng</th>
-                            <th style="text-align: left; padding: 12px 18px; color: #5a6b5e; font-weight: 600;">Ghi chú / Cách dùng riêng</th>
+                        <tr>
+                            <th style="width: 60px; text-align: center;">STT</th>
+                            <th>Tên Vị Thuốc</th>
+                            <th style="text-align: center;">Số lượng</th>
+                            <th>Ghi chú / Cách dùng riêng</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($prescription->items as $index => $item)
-                        <tr style="border-bottom: 1px solid #f2ede5;">
-                            <td style="padding: 12px 18px;">{{ $index + 1 }}</td>
-                            <td style="padding: 12px 18px; font-weight: 500;">
-                                <a href="{{ route('admin.medicinal-herbs.show', $item->medicinal_herb_id) }}" style="color: #1a5632; text-decoration: none;">
-                                    {{ $item->herb->name }}
+                        <tr>
+                            <td style="text-align: center; font-weight: 700; color: var(--text-muted);">{{ $index + 1 }}</td>
+                            <td>
+                                <a href="{{ route('admin.medicinal-herbs.show', $item->medicinal_herb_id) }}" class="herb-name">
+                                    🌿 {{ $item->herb->name }}
                                 </a>
                             </td>
-                            <td style="padding: 12px 18px; text-align: center;"><strong>{{ floatval($item->quantity) }}</strong> {{ $item->unit }}</td>
-                            <td style="padding: 12px 18px;">{{ $item->instruction ?: '-' }}</td>
+                            <td style="text-align: center;">
+                                <span class="quantity-badge">{{ floatval($item->quantity) }} {{ $item->unit }}</span>
+                            </td>
+                            <td style="font-style: italic; color: var(--text-muted);">{{ $item->instruction ?: '-' }}</td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" style="text-align: center; padding: 20px;">Chưa có vị thuốc nào.</td>
+                            <td colspan="4" style="text-align: center; padding: 40px; color: var(--text-muted); font-weight: 600;">
+                                Chưa có vị thuốc nào trong đơn này.
+                            </td>
                         </tr>
                         @endforelse
                     </tbody>

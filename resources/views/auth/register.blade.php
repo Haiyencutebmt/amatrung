@@ -4,115 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng ký - AmaTrung</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; font-family: Arial, sans-serif; }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #10b981;
+            --bg-page: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 16px;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        * { box-sizing: border-box; font-family: 'Be Vietnam Pro', sans-serif; }
+        
         body {
             margin: 0;
-            background: linear-gradient(135deg, #f7fff8, #eef8ee);
+            background: var(--bg-page);
+            background-image: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 20%),
+                              radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #234b2f;
+            color: var(--text-main);
+            padding: 40px 20px;
         }
+
         .wrapper {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1000px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            background: #fff;
+            grid-template-columns: 1fr 1.5fr;
+            background: white;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
+
         .left {
-            background: linear-gradient(160deg, #2f7d4a, #5ca36f);
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            padding: 50px;
             color: white;
-            padding: 48px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
+
+        .left::before {
+            content: "🌿";
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            font-size: 150px;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+        }
+
         .left h1 {
-            font-size: 38px;
-            margin-bottom: 16px;
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
+
         .left p {
             font-size: 18px;
-            line-height: 1.7;
+            line-height: 1.8;
+            opacity: 0.9;
         }
+
         .right {
-            padding: 36px;
+            padding: 50px;
+            background: #fff;
         }
+
         .title {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 8px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
+
         .subtitle {
-            margin-bottom: 24px;
-            color: #5a6b5e;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-size: 16px;
         }
+
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 20px;
         }
+
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 4px;
         }
+
         label {
             display: block;
-            font-size: 15px;
             margin-bottom: 8px;
             font-weight: 600;
+            font-size: 14px;
+            color: #475569;
         }
+
         input, select {
             width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #d9e4d8;
-            border-radius: 14px;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             font-size: 16px;
             outline: none;
+            transition: all 0.2s;
+            background: #fcfdfe;
         }
+
         input:focus, select:focus {
-            border-color: #4a9b61;
-            box-shadow: 0 0 0 3px rgba(74,155,97,0.12);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            background: #fff;
         }
+
         .full {
             grid-column: 1 / -1;
         }
+
         .btn {
             width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 14px;
-            background: #2f7d4a;
+            padding: 16px;
+            background: var(--primary);
             color: white;
+            border: none;
+            border-radius: var(--radius);
             font-size: 17px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
         }
-        .btn:hover { background: #27673d; }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .error-list {
+            background: #fff1f2;
+            color: #be123c;
+            padding: 14px 18px;
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            font-size: 15px;
+            border: 1px solid #fecdd3;
+        }
+
         .link {
             text-align: center;
-            margin-top: 18px;
+            margin-top: 30px;
+            font-size: 15px;
+            color: var(--text-muted);
         }
+
         .link a {
-            color: #2f7d4a;
-            font-weight: bold;
+            color: var(--primary);
+            font-weight: 700;
             text-decoration: none;
         }
-        .error-list {
-            background: #fff2f2;
-            color: #b42318;
-            padding: 12px 14px;
-            border-radius: 12px;
-            margin-bottom: 18px;
+
+        .link a:hover {
+            text-decoration: underline;
         }
-        @media (max-width: 900px) {
-            .wrapper { grid-template-columns: 1fr; }
+
+        @media (max-width: 950px) {
+            .wrapper { grid-template-columns: 1fr; max-width: 550px; }
             .left { display: none; }
+            .right { padding: 40px 30px; }
             .grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -121,12 +196,12 @@
 <div class="wrapper">
     <div class="left">
         <h1>AmaTrung</h1>
-        <p>Đăng ký tài khoản để theo dõi thông tin cá nhân, đọc bài viết sức khỏe và tương tác cùng nhà thuốc y học cổ truyền AmaTrung.</p>
+        <p>Tham gia cộng đồng AmaTrung để cùng chúng tôi kiến tạo một lối sống khỏe mạnh từ thảo dược thiên nhiên.</p>
     </div>
 
     <div class="right">
         <div class="title">Tạo tài khoản</div>
-        <div class="subtitle">Điền thông tin cơ bản để bắt đầu sử dụng hệ thống</div>
+        <div class="subtitle">Bắt đầu hành trình chăm sóc sức khỏe của bạn</div>
 
         @if ($errors->any())
             <div class="error-list">
@@ -144,22 +219,22 @@
             <div class="grid">
                 <div class="form-group">
                     <label>Họ và tên</label>
-                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Nhập họ và tên">
+                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Nhập họ và tên" required>
                 </div>
 
                 <div class="form-group">
                     <label>Số điện thoại</label>
-                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Nhập số điện thoại">
+                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="Nhập số điện thoại" required>
                 </div>
 
                 <div class="form-group full">
                     <label>Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Nhập email">
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Nhập địa chỉ email" required>
                 </div>
 
                 <div class="form-group">
                     <label>Giới tính</label>
-                    <select name="gender">
+                    <select name="gender" required>
                         <option value="">-- Chọn giới tính --</option>
                         <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Nam</option>
                         <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Nữ</option>
@@ -169,26 +244,32 @@
 
                 <div class="form-group">
                     <label>Ngày sinh</label>
-                    <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}">
+                    <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" required>
                 </div>
 
                 <div class="form-group">
                     <label>Mật khẩu</label>
-                    <input type="password" name="password" placeholder="Nhập mật khẩu">
+                    <input type="password" name="password" placeholder="Nhập mật khẩu" required autocomplete="new-password">
                 </div>
 
                 <div class="form-group">
                     <label>Xác nhận mật khẩu</label>
-                    <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu">
+                    <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu" required autocomplete="new-password">
                 </div>
 
                 <div class="form-group full">
-                    <button type="submit" class="btn">Đăng ký tài khoản</button>
+                    <button type="submit" class="btn">Đăng ký ngay</button>
                 </div>
             </div>
         </form>
 
         <div class="link">
+            Đã có tài khoản AmaTrung? <a href="{{ route('login') }}">Đăng nhập ngay</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>ink">
             Đã có tài khoản? <a href="{{ route('login') }}">Đăng nhập ngay</a>
         </div>
     </div>

@@ -4,60 +4,114 @@
 @section('page-title', 'Bình luận')
 
 @section('styles')
-    <style>
-        .records-table-wrapper {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e8e2d8;
-            overflow: hidden;
-            width: 100%;
-        }
+<style>
+    .records-table-wrapper {
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        width: 100%;
+        margin-top: 24px;
+    }
 
-        .records-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    .records-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
 
-        .records-table thead th {
-            text-align: left;
-            font-weight: 600;
-            color: #5a6b5e;
-            padding: 16px 18px;
-            background: #faf7f2;
-            border-bottom: 2px solid #e8e2d8;
-        }
+    .records-table thead th {
+        text-align: left;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 20px;
+        background: #f8fafc;
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+    }
 
-        .records-table tbody td {
-            padding: 16px 18px;
-            border-bottom: 1px solid #f2ede5;
-            vertical-align: middle;
-        }
+    .records-table tbody td {
+        padding: 20px;
+        font-size: 16px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-main);
+        vertical-align: middle;
+    }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-        }
+    .records-table tbody tr:hover {
+        background: #f1f5f9;
+        transition: var(--transition);
+    }
 
-        .status-approved { background: #e8f5e9; color: #2e7d32; }
-        .status-hidden { background: #ffebee; color: #c62828; }
+    .records-table tbody tr:last-child td {
+        border-bottom: none;
+    }
 
-        .btn-sm {
-            padding: 7px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-        .btn-toggle { background: #fff3e0; color: #e65100; }
-        .btn-delete { background: #ffebee; color: #b91c1c; }
-    </style>
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-approved { background: #ecfdf5; color: #10b981; }
+    .status-hidden { background: #fef2f2; color: #dc2626; }
+
+    .action-btns {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-sm {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        transition: var(--transition);
+    }
+
+    .btn-toggle { background: var(--primary-soft); color: var(--primary); }
+    .btn-toggle:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+
+    .btn-delete { background: #fef2f2; color: #dc2626; }
+    .btn-delete:hover { background: #dc2626; color: #fff; transform: translateY(-2px); }
+
+    .pagination-container {
+        padding: 24px;
+        border-top: 1px solid var(--border);
+    }
+    
+    .comment-content {
+        color: var(--text-main);
+        line-height: 1.5;
+        font-weight: 500;
+    }
+
+    .article-link {
+        color: var(--primary);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .article-link:hover {
+        text-decoration: underline;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -76,9 +130,16 @@
             <tbody>
                 @forelse($comments as $comment)
                     <tr>
-                        <td><strong>{{ $comment->user->name }}</strong><br><small>{{ $comment->user->email }}</small></td>
-                        <td>{{ Str::limit($comment->content, 60) }}</td>
-                        <td><a href="{{ route('admin.articles.show', $comment->article_id) }}" style="color: #2f7d4a; text-decoration: none;">{{ Str::limit($comment->article->title, 40) }}</a></td>
+                        <td>
+                            <strong>{{ $comment->user->name }}</strong><br>
+                            <small class="text-muted">{{ $comment->user->email }}</small>
+                        </td>
+                        <td class="comment-content">{{ Str::limit($comment->content, 60) }}</td>
+                        <td>
+                            <a href="{{ route('admin.articles.show', $comment->article_id) }}" class="article-link">
+                                {{ Str::limit($comment->article->title, 40) }}
+                            </a>
+                        </td>
                         <td>{{ $comment->created_at->format('d/m/Y H:i') }}</td>
                         <td>
                             <span class="status-badge status-{{ $comment->status }}">
@@ -86,28 +147,32 @@
                             </span>
                         </td>
                         <td>
-                            <form method="POST" action="{{ route('admin.comments.toggle-status', $comment) }}" style="display:inline;">
-                                @csrf
-                                <button type="submit" class="btn-sm btn-toggle">
-                                    {{ $comment->status == 'approved' ? '👁 Ẩn' : '✅ Hiện' }}
-                                </button>
-                            </form>
-                            <form method="POST" action="{{ route('admin.comments.destroy', $comment) }}" class="form-delete" data-name="bình luận của {{ $comment->user->name }}" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-sm btn-delete">🗑</button>
-                            </form>
+                            <div class="action-btns">
+                                <form method="POST" action="{{ route('admin.comments.toggle-status', $comment) }}" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn-sm btn-toggle">
+                                        {{ $comment->status == 'approved' ? '👁 Ẩn' : '✅ Hiện' }}
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ route('admin.comments.destroy', $comment) }}" class="form-delete" data-name="bình luận của {{ $comment->user->name }}" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-sm btn-delete">🗑</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" style="padding: 40px; text-align: center; color:#5a6b5e;">Không có bình luận nào.</td>
+                        <td colspan="6" class="empty-state">
+                            <p>Không có bình luận nào.</p>
+                        </td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
         @if($comments->hasPages())
-            <div style="padding: 16px;">{{ $comments->links() }}</div>
+            <div class="pagination-container">{{ $comments->links() }}</div>
         @endif
     </div>
 @endsection

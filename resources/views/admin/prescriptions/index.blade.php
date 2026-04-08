@@ -4,149 +4,204 @@
 @section('page-title', 'Đơn thuốc')
 
 @section('styles')
+<style>
     .records-toolbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 16px;
-        margin-bottom: 24px;
+        gap: 20px;
+        margin-bottom: 32px;
     }
 
     .search-box {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         flex: 1;
-        max-width: 420px;
+        max-width: 500px;
+        background: #fff;
+        padding: 6px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
     }
 
     .search-box input {
         flex: 1;
-        padding: 12px 18px;
-        border: 1px solid #d9e4d8;
+        padding: 12px 20px;
+        border: 1px solid transparent;
         border-radius: 12px;
         font-size: 16px;
         font-family: inherit;
         outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
+        transition: var(--transition);
+        background: var(--bg-page);
     }
 
     .search-box input:focus {
-        border-color: #2f7d4a;
-        box-shadow: 0 0 0 3px rgba(47, 125, 74, 0.1);
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px var(--primary-soft);
     }
 
     .btn-search {
-        padding: 12px 20px;
-        background: #2f7d4a;
+        padding: 12px 24px;
+        background: var(--primary);
         color: white;
         border: none;
         border-radius: 12px;
         font-size: 15px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
-        transition: background 0.2s;
+        font-family: inherit;
+        transition: var(--transition);
         white-space: nowrap;
+    }
+
+    .btn-search:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
     }
 
     .btn-add {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 12px 24px;
-        background: #2f7d4a;
+        padding: 14px 28px;
+        background: var(--accent);
         color: white;
         border: none;
-        border-radius: 12px;
+        border-radius: 14px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
+        cursor: pointer;
         text-decoration: none;
-        transition: background 0.2s, transform 0.15s;
+        font-family: inherit;
+        transition: var(--transition);
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-add:hover {
+        background: var(--accent-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+        color: white;
     }
 
     .records-table-wrapper {
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid #e8e2d8;
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border);
         overflow: hidden;
         width: 100%;
     }
 
     .records-table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
     }
 
     .records-table thead th {
         text-align: left;
-        font-size: 14px;
-        font-weight: 600;
-        color: #5a6b5e;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
         text-transform: uppercase;
-        padding: 16px 18px;
-        background: #faf7f2;
-        border-bottom: 2px solid #e8e2d8;
+        letter-spacing: 1px;
+        padding: 20px;
+        background: #f8fafc;
+        border-bottom: 1px solid var(--border);
         white-space: nowrap;
     }
 
     .records-table tbody td {
-        padding: 16px 18px;
+        padding: 20px;
         font-size: 16px;
-        border-bottom: 1px solid #f2ede5;
-        color: #2d3a2e;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-main);
         vertical-align: middle;
     }
 
     .records-table tbody tr:hover {
-        background: #faf7f2;
+        background: #f1f5f9;
+        transition: var(--transition);
+    }
+
+    .records-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .record-code-badge {
+        font-weight: 800;
+        color: var(--primary);
+        font-size: 15px;
     }
 
     .action-btns {
         display: flex;
-        gap: 8px;
+        gap: 10px;
     }
 
     .btn-sm {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        padding: 7px 14px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 600;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        font-size: 16px;
         text-decoration: none;
         border: none;
         cursor: pointer;
+        font-family: inherit;
+        transition: var(--transition);
     }
 
-    .btn-view { background: #e8f5e9; color: #1a5632; }
-    .btn-edit { background: #fff8e1; color: #e65100; }
-    .btn-delete { background: #ffebee; color: #b91c1c; }
+    .btn-view { background: var(--primary-soft); color: var(--primary); }
+    .btn-view:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+
+    .btn-edit { background: #fff7ed; color: #ea580c; }
+    .btn-edit:hover { background: #ea580c; color: #fff; transform: translateY(-2px); }
+
+    .btn-delete { background: #fef2f2; color: #dc2626; }
+    .btn-delete:hover { background: #dc2626; color: #fff; transform: translateY(-2px); }
 
     .status-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 14px;
+        border-radius: 10px;
         font-size: 13px;
-        font-weight: 600;
-        text-transform: capitalize;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .status-active { background: #e3f2fd; color: #1565c0; }
-    .status-completed { background: #e8f5e9; color: #2e7d32; }
-    .status-cancelled { background: #ffebee; color: #c62828; }
+    .status-active { background: #eff6ff; color: #2563eb; }
+    .status-completed { background: #ecfdf5; color: #10b981; }
+    .status-cancelled { background: #fef2f2; color: #dc2626; }
 
     .pagination-container {
-        margin-top: 24px;
+        padding: 24px;
+        border-top: 1px solid var(--border);
     }
     
     .empty-state {
-        padding: 48px 24px;
         text-align: center;
+        padding: 60px 24px;
     }
-    .empty-state p { margin-bottom: 16px; color: #5a6b5e; font-size: 16px; }
+    .empty-state p { margin-bottom: 24px; color: var(--text-muted); font-size: 18px; font-weight: 500; }
+
+    @media (max-width: 768px) {
+        .records-toolbar { flex-direction: column; align-items: stretch; }
+        .search-box { max-width: 100%; }
+        .records-table-wrapper { overflow-x: auto; }
+    }
+</style>
 @endsection
 
 @section('content')
@@ -177,11 +232,11 @@
                 <tbody>
                     @forelse($prescriptions as $prescription)
                         <tr>
-                            <td><strong>{{ $prescription->prescription_code }}</strong></td>
+                            <td><span class="record-code-badge">{{ $prescription->prescription_code }}</span></td>
                             <td>{{ $prescription->prescribed_date->format('d/m/Y') }}</td>
-                            <td>{{ $prescription->medicalRecord->patient->full_name }}</td>
+                            <td><strong>{{ $prescription->medicalRecord->patient->full_name }}</strong></td>
                             <td>
-                                <a href="{{ route('admin.medical-records.show', $prescription->medicalRecord) }}" style="color: #2f7d4a; text-decoration: none;">
+                                <a href="{{ route('admin.medical-records.show', $prescription->medicalRecord) }}" class="record-code-badge" style="text-decoration: underline; background: var(--bg-page); color: var(--text-muted);">
                                     {{ $prescription->medicalRecord->record_code }}
                                 </a>
                             </td>
@@ -199,10 +254,10 @@
                             <td>
                                 <div class="action-btns">
                                     <a href="{{ route('admin.prescriptions.show', $prescription) }}" class="btn-sm btn-view">
-                                        👁 Xem
+                                        👁
                                     </a>
                                     <a href="{{ route('admin.prescriptions.edit', $prescription) }}" class="btn-sm btn-edit">
-                                        ✏️ Sửa
+                                        ✏️
                                     </a>
                                     <form method="POST" action="{{ route('admin.prescriptions.destroy', $prescription) }}"
                                           class="form-delete"
@@ -210,7 +265,7 @@
                                           style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-sm btn-delete">🗑 Xoá</button>
+                                        <button type="submit" class="btn-sm btn-delete">🗑</button>
                                     </form>
                                 </div>
                             </td>
@@ -228,7 +283,7 @@
         </div>
 
         @if($prescriptions->hasPages())
-            <div class="pagination-container" style="padding: 16px;">
+            <div class="pagination-container">
                 {{ $prescriptions->links() }}
             </div>
         @endif

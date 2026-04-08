@@ -4,101 +4,114 @@
 @section('page-title', 'Chi tiết bệnh nhân')
 
 @section('styles')
+<style>
     .detail-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 36px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid #e8e2d8;
-        max-width: 800px;
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        padding: 48px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+        max-width: 900px;
+        margin: 0 auto;
+        animation: fadeInUp 0.5s ease-out;
     }
 
     .detail-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 28px;
-        padding-bottom: 16px;
-        border-bottom: 2px solid #e8f5e9;
+        margin-bottom: 40px;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--primary-soft);
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 20px;
     }
 
     .detail-header-left {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 24px;
     }
 
     .detail-avatar {
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #2f7d4a, #3a8a52);
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-hover));
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26px;
-        font-weight: 700;
+        font-size: 32px;
+        font-weight: 800;
         flex-shrink: 0;
-        box-shadow: 0 4px 12px rgba(47, 125, 74, 0.3);
+        box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
     }
 
     .detail-name {
-        font-size: 24px;
-        font-weight: 700;
-        color: #1a5632;
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--text-main);
+        letter-spacing: -1px;
     }
 
     .detail-id {
-        font-size: 14px;
-        color: #5a6b5e;
-        margin-top: 2px;
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-top: 4px;
+        font-weight: 600;
     }
 
     .detail-actions {
         display: flex;
-        gap: 10px;
+        gap: 12px;
     }
 
-    .btn-back {
+    .btn-detail-action {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 10px 20px;
-        background: #faf7f2;
-        color: #5a6b5e;
-        border: 1px solid #e8e2d8;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
         text-decoration: none;
-        transition: all 0.15s;
+        transition: var(--transition);
+        border: 1px solid transparent;
     }
 
-    .btn-back:hover {
-        background: #f0ebe3;
-        color: #2d3a2e;
+    .btn-create-record {
+        background: var(--accent-soft);
+        color: var(--accent-hover);
+        border-color: var(--accent-soft);
+    }
+    .btn-create-record:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: translateY(-2px);
     }
 
     .btn-edit-detail {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 10px 20px;
-        background: #fff3e0;
-        color: #e65100;
-        border: 1px solid #ffcc80;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.15s;
+        background: #fff7ed;
+        color: #ea580c;
+        border-color: #ffedd5;
+    }
+    .btn-edit-detail:hover {
+        background: #ea580c;
+        color: #fff;
+        transform: translateY(-2px);
     }
 
-    .btn-edit-detail:hover {
-        background: #ffe0b2;
+    .btn-back {
+        background: var(--bg-page);
+        color: var(--text-muted);
+        border-color: var(--border);
+    }
+    .btn-back:hover {
+        background: #fff;
+        color: var(--primary);
+        border-color: var(--primary);
+        transform: translateX(-4px);
     }
 
     .detail-grid {
@@ -108,8 +121,8 @@
     }
 
     .detail-item {
-        padding: 16px 0;
-        border-bottom: 1px solid #f2ede5;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border);
     }
 
     .detail-item.full-width {
@@ -122,54 +135,54 @@
 
     .detail-label {
         font-size: 13px;
-        font-weight: 600;
-        color: #5a6b5e;
+        font-weight: 800;
+        color: var(--text-muted);
         text-transform: uppercase;
-        letter-spacing: 0.3px;
-        margin-bottom: 4px;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
     }
 
     .detail-value {
-        font-size: 17px;
-        color: #2d3a2e;
-        font-weight: 500;
+        font-size: 18px;
+        color: var(--text-main);
+        font-weight: 700;
         line-height: 1.6;
     }
 
     .gender-badge {
-        display: inline-block;
-        padding: 3px 14px;
-        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .gender-badge.male   { background: #eff6ff; color: #2563eb; }
+    .gender-badge.female { background: #fff1f2; color: #e11d48; }
+    .gender-badge.other  { background: #faf5ff; color: #9333ea; }
+
+    .detail-timestamps {
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 2px solid var(--border);
+        display: flex;
+        gap: 40px;
         font-size: 14px;
+        color: var(--text-muted);
         font-weight: 600;
     }
 
-    .gender-badge.male   { background: #e8f0fe; color: #1a56db; }
-    .gender-badge.female { background: #fce4ec; color: #c62828; }
-    .gender-badge.other  { background: #f3e8ff; color: #7c3aed; }
-
-    .detail-timestamps {
-        margin-top: 24px;
-        padding-top: 16px;
-        border-top: 2px solid #f2ede5;
-        display: flex;
-        gap: 32px;
-        font-size: 13px;
-        color: #8a9b8e;
+    @media (max-width: 768px) {
+        .detail-card { padding: 32px 20px; }
+        .detail-grid { grid-template-columns: 1fr; }
+        .detail-header { flex-direction: column; align-items: flex-start; }
+        .detail-actions { width: 100%; flex-wrap: wrap; }
+        .btn-detail-action { flex: 1; justify-content: center; min-width: 140px; }
     }
-
-    @media (max-width: 600px) {
-        .detail-grid {
-            grid-template-columns: 1fr;
-        }
-        .detail-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        .detail-card {
-            padding: 24px 18px;
-        }
-    }
+</style>
 @endsection
 
 @section('content')
@@ -186,11 +199,11 @@
                 </div>
             </div>
             <div class="detail-actions">
-                <a href="{{ route('admin.medical-records.create', ['patient_id' => $patient->id]) }}" class="btn-edit-detail" style="background: #e8f5e9; color: #1a5632; border-color: #c8e6c9;">
+                <a href="{{ route('admin.medical-records.create', ['patient_id' => $patient->id]) }}" class="btn-detail-action btn-create-record">
                     ➕ Tạo hồ sơ
                 </a>
-                <a href="{{ route('admin.patients.edit', $patient) }}" class="btn-edit-detail">✏️ Sửa</a>
-                <a href="{{ route('admin.patients.index') }}" class="btn-back">← Quay lại</a>
+                <a href="{{ route('admin.patients.edit', $patient) }}" class="btn-detail-action btn-edit-detail">✏️ Sửa</a>
+                <a href="{{ route('admin.patients.index') }}" class="btn-detail-action btn-back">← Quay lại</a>
             </div>
         </div>
 

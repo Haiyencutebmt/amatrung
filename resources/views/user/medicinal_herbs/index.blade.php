@@ -6,120 +6,166 @@
 <style>
     .herbs-header {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 56px;
     }
     .herbs-header h1 {
-        font-size: 32px;
-        color: #1a5632;
-        margin-bottom: 10px;
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 16px;
+        letter-spacing: -1px;
     }
     .herbs-header p {
-        color: #5a6b5e;
-        font-size: 16px;
+        color: var(--text-muted);
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.8;
     }
 
     .search-container {
-        max-width: 600px;
-        margin: 0 auto 40px;
+        max-width: 700px;
+        margin: 0 auto 56px;
         display: flex;
-        gap: 10px;
+        gap: 12px;
+        background: #fff;
+        padding: 8px;
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border);
     }
 
     .search-input {
         flex: 1;
-        padding: 14px 20px;
-        border: 2px solid #e8e2d8;
-        border-radius: 12px;
-        font-size: 16px;
+        padding: 16px 24px;
+        border: 1px solid transparent;
+        border-radius: 16px;
+        font-size: 17px;
         outline: none;
-        transition: border-color 0.2s;
+        transition: var(--transition);
         font-family: inherit;
+        font-weight: 500;
+        background: var(--bg-page);
     }
     .search-input:focus {
-        border-color: #2f7d4a;
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px var(--primary-soft);
     }
 
     .btn-search {
-        padding: 14px 24px;
-        background: #2f7d4a;
+        padding: 0 32px;
+        background: var(--primary);
         color: white;
         border: none;
-        border-radius: 12px;
+        border-radius: 14px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
-        transition: background 0.2s;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     .btn-search:hover {
-        background: #1a5632;
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
     }
 
     .herbs-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 24px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 32px;
     }
 
     .herb-card {
-        background: #fff;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-        border: 1px solid #e8e2d8;
-        transition: transform 0.3s, box-shadow 0.3s;
+        background: var(--bg-card);
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border);
+        transition: var(--transition);
         text-decoration: none;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
     .herb-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-        border-color: #2f7d4a;
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
     }
 
     .herb-icon {
-        font-size: 40px;
-        margin-bottom: 16px;
-        text-align: center;
-        background: #f0f7f1;
-        width: 80px;
-        height: 80px;
-        line-height: 80px;
-        border-radius: 50%;
-        margin: 0 auto 20px;
+        font-size: 48px;
+        margin-bottom: 24px;
+        background: var(--primary-soft);
+        width: 96px;
+        height: 96px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 28px;
+        transition: var(--transition);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .herb-card:hover .herb-icon {
+        background: var(--primary);
+        color: #fff;
+        transform: rotate(10deg) scale(1.1);
     }
 
     .herb-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: #1a5632;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text-main);
         margin-bottom: 8px;
-        text-align: center;
+        letter-spacing: -0.5px;
     }
 
     .herb-origin {
         font-size: 14px;
-        color: #88998c;
-        text-align: center;
-        margin-bottom: 16px;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
 
     .herb-summary {
-        font-size: 15px;
-        color: #5a6b5e;
-        line-height: 1.6;
-        text-align: center;
+        font-size: 16px;
+        color: var(--text-muted);
+        line-height: 1.7;
         flex: 1;
     }
 
     .empty-state {
         text-align: center;
-        padding: 60px 20px;
-        color: #5a6b5e;
-        background: #fff;
-        border-radius: 16px;
-        border: 1px solid #e8e2d8;
+        padding: 80px 40px;
+        color: var(--text-muted);
+        background: var(--bg-card);
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
+    }
+
+    .empty-state h2 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 16px;
+    }
+
+    @media (max-width: 600px) {
+        .search-container { flex-direction: column; padding: 12px; }
+        .btn-search { height: 56px; width: 100%; justify-content: center; }
     }
 </style>
 @endsection

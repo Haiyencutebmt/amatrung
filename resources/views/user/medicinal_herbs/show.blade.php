@@ -5,122 +5,154 @@
 @section('styles')
 <style>
     .herb-container {
-        background: #fff;
-        border-radius: 16px;
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
         overflow: hidden;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-        border: 1px solid #e8e2d8;
-        padding: 40px;
-        max-width: 800px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+        padding: 60px;
+        max-width: 900px;
         margin: 0 auto;
+        animation: fadeInUp 0.6s ease-out;
     }
 
     .btn-back {
-        display: inline-block;
-        margin-bottom: 24px;
-        color: #2f7d4a;
-        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 32px;
+        color: var(--primary);
+        font-weight: 700;
         text-decoration: none;
+        transition: var(--transition);
+        font-size: 16px;
     }
     .btn-back:hover {
-        text-decoration: underline;
+        color: var(--primary-hover);
+        transform: translateX(-4px);
     }
 
     .herb-header {
         display: flex;
         align-items: center;
-        gap: 20px;
-        margin-bottom: 30px;
-        padding-bottom: 30px;
-        border-bottom: 2px solid #f2ede5;
+        gap: 32px;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 2px solid var(--primary-soft);
     }
 
     .herb-icon-large {
-        font-size: 60px;
-        width: 100px;
-        height: 100px;
-        background: #f0f7f1;
-        border-radius: 50%;
+        font-size: 64px;
+        width: 120px;
+        height: 120px;
+        background: var(--primary-soft);
+        border-radius: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
+        color: var(--primary);
     }
 
     .herb-title {
-        font-size: 32px;
-        color: #1a5632;
-        margin-bottom: 8px;
-        line-height: 1.2;
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 12px;
+        line-height: 1.1;
+        letter-spacing: -1px;
     }
 
     .herb-code {
-        font-size: 16px;
-        color: #88998c;
+        font-size: 15px;
+        color: var(--primary);
+        font-weight: 700;
         display: inline-block;
-        background: #f8f9fa;
-        padding: 4px 12px;
-        border-radius: 6px;
-        border: 1px solid #e9ecef;
+        background: var(--primary-soft);
+        padding: 6px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .info-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        margin-bottom: 40px;
+        gap: 28px;
+        margin-bottom: 48px;
     }
 
     .info-item {
-        background: #fafff8;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #e8f5e9;
+        background: var(--bg-page);
+        padding: 24px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        transition: var(--transition);
+    }
+
+    .info-item:hover {
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: var(--shadow-md);
     }
 
     .info-label {
-        font-size: 14px;
-        color: #5a6b5e;
+        font-size: 13px;
+        color: var(--text-muted);
         margin-bottom: 8px;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: 600;
+        letter-spacing: 1px;
+        font-weight: 800;
     }
 
     .info-value {
-        font-size: 18px;
-        color: #2d3a2e;
-        font-weight: 500;
+        font-size: 20px;
+        color: var(--text-main);
+        font-weight: 700;
     }
 
     .herb-content-section {
-        background: #faf7f2;
-        padding: 30px;
-        border-radius: 12px;
-        border-left: 4px solid #2f7d4a;
+        background: #fff;
+        padding: 40px;
+        border-radius: 24px;
+        border: 2px solid var(--accent-hover);
+        position: relative;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05);
+    }
+
+    .herb-content-section::before {
+        content: "💡";
+        position: absolute;
+        top: -24px;
+        left: 32px;
+        font-size: 32px;
+        background: #fff;
+        padding: 0 8px;
     }
 
     .herb-content-title {
-        font-size: 20px;
-        color: #1a5632;
-        margin-bottom: 16px;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--accent-hover);
+        margin-bottom: 20px;
+        letter-spacing: -0.5px;
     }
 
     .herb-content-text {
         font-size: 18px;
         line-height: 1.8;
-        color: #2d3a2e;
+        color: var(--text-main);
         white-space: pre-wrap;
+        font-weight: 500;
     }
 
-    @media (max-width: 600px) {
-        .info-grid {
-            grid-template-columns: 1fr;
-        }
-        .herb-header {
-            flex-direction: column;
-            text-align: center;
-        }
+    @media (max-width: 768px) {
+        .herb-container { padding: 32px 20px; }
+        .info-grid { grid-template-columns: 1fr; gap: 16px; }
+        .herb-header { flex-direction: column; text-align: center; gap: 20px; }
+        .herb-title { font-size: 32px; }
     }
 </style>
 @endsection

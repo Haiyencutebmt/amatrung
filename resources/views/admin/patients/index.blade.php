@@ -1,121 +1,129 @@
 @extends('layouts.admin')
 
 @section('title', 'Danh sách bệnh nhân')
-@section('page-title', 'Bệnh nhân')
-
-@section('styles')
+@section('page-title', 'Bệnh nh�@section('styles')
+<style>
     .patients-toolbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 16px;
-        margin-bottom: 24px;
+        gap: 20px;
+        margin-bottom: 32px;
     }
 
     .search-box {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         flex: 1;
-        max-width: 420px;
+        max-width: 500px;
+        background: #fff;
+        padding: 6px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
     }
 
     .search-box input {
         flex: 1;
-        padding: 12px 18px;
-        border: 1px solid #d9e4d8;
+        padding: 12px 20px;
+        border: 1px solid transparent;
         border-radius: 12px;
         font-size: 16px;
         font-family: inherit;
         outline: none;
-        transition: border-color 0.2s, box-shadow 0.2s;
+        transition: var(--transition);
+        background: var(--bg-page);
     }
 
     .search-box input:focus {
-        border-color: #2f7d4a;
-        box-shadow: 0 0 0 3px rgba(47, 125, 74, 0.1);
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px var(--primary-soft);
     }
 
     .btn-search {
-        padding: 12px 20px;
-        background: #2f7d4a;
+        padding: 12px 24px;
+        background: var(--primary);
         color: white;
         border: none;
         border-radius: 12px;
         font-size: 15px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         font-family: inherit;
-        transition: background 0.2s;
+        transition: var(--transition);
         white-space: nowrap;
     }
 
     .btn-search:hover {
-        background: #1a5632;
+        background: var(--primary-hover);
+        transform: translateY(-1px);
     }
 
     .btn-add {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 12px 24px;
-        background: #2f7d4a;
+        padding: 14px 28px;
+        background: var(--accent);
         color: white;
         border: none;
-        border-radius: 12px;
+        border-radius: 14px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         text-decoration: none;
         font-family: inherit;
-        transition: background 0.2s, transform 0.15s;
+        transition: var(--transition);
         white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
     }
 
     .btn-add:hover {
-        background: #1a5632;
-        transform: translateY(-1px);
+        background: var(--accent-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
         color: white;
     }
 
     /* Table */
     .patients-table-wrapper {
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-        border: 1px solid #e8e2d8;
+        background: var(--bg-card);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        border: 1px solid var(--border);
         overflow: hidden;
     }
 
     .patients-table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
     }
 
     .patients-table thead th {
         text-align: left;
-        font-size: 14px;
-        font-weight: 600;
-        color: #5a6b5e;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
         text-transform: uppercase;
-        letter-spacing: 0.4px;
-        padding: 16px 18px;
-        background: #faf7f2;
-        border-bottom: 2px solid #e8e2d8;
-        white-space: nowrap;
+        letter-spacing: 1px;
+        padding: 20px;
+        background: #f8fafc;
+        border-bottom: 1px solid var(--border);
     }
 
     .patients-table tbody td {
-        padding: 16px 18px;
+        padding: 20px;
         font-size: 16px;
-        border-bottom: 1px solid #f2ede5;
-        color: #2d3a2e;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-main);
         vertical-align: middle;
     }
 
     .patients-table tbody tr:hover {
-        background: #faf7f2;
+        background: #f1f5f9;
     }
 
     .patients-table tbody tr:last-child td {
@@ -123,141 +131,90 @@
     }
 
     .patient-name {
-        font-weight: 600;
-        color: #1a5632;
+        font-weight: 800;
+        color: var(--text-main);
         font-size: 16px;
     }
 
     .gender-badge {
-        display: inline-block;
-        padding: 3px 12px;
-        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 14px;
+        border-radius: 10px;
         font-size: 13px;
-        font-weight: 600;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .gender-badge.male   { background: #e8f0fe; color: #1a56db; }
-    .gender-badge.female { background: #fce4ec; color: #c62828; }
-    .gender-badge.other  { background: #f3e8ff; color: #7c3aed; }
+    .gender-badge.male   { background: #eff6ff; color: #2563eb; }
+    .gender-badge.female { background: #fff1f2; color: #e11d48; }
+    .gender-badge.other  { background: #faf5ff; color: #9333ea; }
 
     /* Action buttons */
     .action-btns {
         display: flex;
-        gap: 8px;
+        gap: 10px;
     }
 
     .btn-sm {
         display: inline-flex;
         align-items: center;
-        gap: 4px;
-        padding: 7px 14px;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 600;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        font-size: 16px;
         text-decoration: none;
         border: none;
         cursor: pointer;
         font-family: inherit;
-        transition: all 0.15s;
-        white-space: nowrap;
+        transition: var(--transition);
     }
 
-    .btn-view {
-        background: #e8f5e9;
-        color: #1a5632;
-    }
-    .btn-view:hover { background: #c8e6c9; }
+    .btn-view { background: var(--primary-soft); color: var(--primary); }
+    .btn-view:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
 
-    .btn-edit {
-        background: #fff3e0;
-        color: #e65100;
-    }
-    .btn-edit:hover { background: #ffe0b2; }
+    .btn-edit { background: #fff7ed; color: #ea580c; }
+    .btn-edit:hover { background: #ea580c; color: #fff; transform: translateY(-2px); }
 
-    .btn-delete {
-        background: #fff5f5;
-        color: #b91c1c;
-    }
-    .btn-delete:hover { background: #fee2e2; }
+    .btn-delete { background: #fef2f2; color: #dc2626; }
+    .btn-delete:hover { background: #dc2626; color: #fff; transform: translateY(-2px); }
 
     /* Empty state */
     .empty-state {
         text-align: center;
-        padding: 48px 24px;
-        color: #8a9b8e;
-        font-size: 16px;
+        padding: 60px 24px;
+        color: var(--text-muted);
     }
 
     .empty-state-icon {
-        font-size: 56px;
-        margin-bottom: 12px;
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.5;
     }
 
-    /* Pagination */
+    /* Pagination Override */
     .pagination-wrapper {
-        padding: 16px 18px;
-        display: flex;
-        justify-content: center;
-        border-top: 1px solid #f2ede5;
-    }
-
-    .pagination-wrapper nav {
-        display: flex;
-        gap: 4px;
-    }
-
-    .pagination-wrapper .page-link,
-    .pagination-wrapper a,
-    .pagination-wrapper span {
-        padding: 8px 14px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 500;
-        text-decoration: none;
-        color: #2d3a2e;
-        background: #faf7f2;
-        border: 1px solid #e8e2d8;
-        transition: all 0.15s;
-    }
-
-    .pagination-wrapper a:hover {
-        background: #e8f5e9;
-        border-color: #2f7d4a;
-        color: #1a5632;
-    }
-
-    .pagination-wrapper span[aria-current="page"] span,
-    .pagination-wrapper .active span {
-        background: #2f7d4a;
-        color: white;
-        border-color: #2f7d4a;
-    }
-
-    .pagination-wrapper span[aria-disabled="true"] span,
-    .pagination-wrapper .disabled span {
-        color: #c5c5c5;
-        cursor: not-allowed;
+        padding: 24px;
+        border-top: 1px solid var(--border);
     }
 
     .result-count {
-        font-size: 14px;
-        color: #5a6b5e;
-        margin-bottom: 12px;
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+        font-weight: 500;
     }
 
     @media (max-width: 768px) {
-        .patients-toolbar {
-            flex-direction: column;
-            align-items: stretch;
-        }
-        .search-box {
-            max-width: 100%;
-        }
-        .patients-table-wrapper {
-            overflow-x: auto;
-        }
+        .patients-toolbar { flex-direction: column; align-items: stretch; }
+        .search-box { max-width: 100%; }
+        .patients-table-wrapper { overflow-x: auto; }
     }
+</style>
 @endsection
+ection
 
 @section('content')
     {{-- Toolbar: tìm kiếm + nút thêm --}}
