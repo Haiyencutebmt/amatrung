@@ -48,9 +48,9 @@
         letter-spacing: 0.5px;
     }
 
-    .status-available { background: #eff6ff; color: #2563eb; }
+    .status-available { background: var(--primary-soft); color: var(--primary); }
     .status-out_of_stock { background: #fef2f2; color: #dc2626; }
-    .status-discontinued { background: #f1f5f9; color: #64748b; }
+    .status-discontinued { background: var(--bg-page); color: var(--text-muted); }
 
     .header-actions {
         display: flex;
@@ -137,22 +137,21 @@
     .alert-box {
         background: #fff7ed;
         border: 1px solid #ffedd5;
-        padding: 20px 24px;
-        border-radius: 16px;
+        padding: 24px;
+        border-radius: var(--radius);
         margin-bottom: 32px;
         color: #ea580c;
         display: flex;
         align-items: center;
         gap: 16px;
         font-weight: 700;
-        box-shadow: 0 4px 12px rgba(234, 88, 12, 0.05);
+        box-shadow: var(--shadow-sm);
     }
 
     .alert-danger {
         background: #fef2f2;
         border-color: #fee2e2;
         color: #dc2626;
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.05);
     }
 
     .alert-icon {
@@ -167,7 +166,6 @@
         .btn-action { flex: 1; justify-content: center; }
     }
 </style>
-@endsection
 @endsection
 
 @section('content')
