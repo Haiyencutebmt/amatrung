@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,32 +8,39 @@
     <title>@yield('title', 'Quản trị') — AmaTrung</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
-            --primary: #2563eb;           /* Professional Medical Blue */
+            --primary: #2563eb;
+            /* Professional Medical Blue */
             --primary-hover: #1d4ed8;
             --primary-soft: #eff6ff;
-            --accent: #10b981;            /* Herbal/Nature Green */
+            --accent: #10b981;
+            /* Herbal/Nature Green */
             --accent-hover: #059669;
             --accent-soft: #ecfdf5;
-            --bg-page: #f8fafc;           /* Very light blue-grey background */
-            --bg-sidebar: #1e3a8a;        /* Deep Navy for Sidebar */
+            --bg-page: #f8fafc;
+            /* Very light blue-grey background */
+            --bg-sidebar: #1e3a8a;
+            /* Deep Navy for Sidebar */
             --bg-card: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
             --radius: 14px;
             --radius-lg: 20px;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.05);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* ===== RESET & BASE ===== */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -86,7 +94,7 @@
         .logo-icon {
             font-size: 32px;
             line-height: 1;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         .logo-text {
@@ -94,7 +102,7 @@
             font-weight: 800;
             letter-spacing: -1px;
             color: #fff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar-subtitle {
@@ -175,7 +183,7 @@
             font-weight: 800;
             color: #fff;
             flex-shrink: 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar-user-info {
@@ -260,8 +268,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ===== UTILITY CARDS ===== */
@@ -376,8 +391,17 @@
             gap: 12px;
         }
 
-        .alert-success { background: var(--accent-soft); color: var(--accent-hover); border: 1px solid var(--accent); }
-        .alert-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .alert-success {
+            background: var(--accent-soft);
+            color: var(--accent-hover);
+            border: 1px solid var(--accent);
+        }
+
+        .alert-danger {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
 
         /* ===== FOOTER ===== */
         .admin-footer {
@@ -392,24 +416,45 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1024px) {
-            .admin-sidebar { transform: translateX(-100%); }
-            .admin-sidebar.open { transform: translateX(0); }
-            .admin-main { margin-left: 0; }
-            .sidebar-toggle { display: flex; }
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .sidebar-toggle {
+                display: flex;
+            }
         }
 
         @media (max-width: 600px) {
-            .admin-content { padding: 20px 16px; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .admin-header { padding: 0 20px; }
-            .page-title { font-size: 20px; }
+            .admin-content {
+                padding: 20px 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-header {
+                padding: 0 20px;
+            }
+
+            .page-title {
+                font-size: 20px;
+            }
         }
 
         @yield('styles')
     </style>
-        @yield('styles')
-    </style>
 </head>
+
 <body>
     <div class="admin-wrapper">
         {{-- Overlay cho mobile --}}
@@ -445,7 +490,7 @@
         }
 
         // Đóng sidebar khi nhấn Escape
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 const sidebar = document.getElementById('adminSidebar');
                 if (sidebar.classList.contains('open')) {
@@ -457,41 +502,42 @@
 
     {{-- SweetAlert2 flash messages --}}
     @if(session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            text: @json(session('success')),
-            confirmButtonColor: '#2f7d4a',
-            confirmButtonText: 'Đóng',
-            timer: 3000,
-            timerProgressBar: true,
-        });
-    </script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: @json(session('success')),
+                confirmButtonColor: '#2f7d4a',
+                confirmButtonText: 'Đóng',
+                timer: 3000,
+                timerProgressBar: true,
+            });
+        </script>
     @endif
     @if(session('error'))
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Lỗi!',
-            text: @json(session('error')),
-            confirmButtonColor: '#b91c1c',
-            confirmButtonText: 'Đóng',
-        });
-    </script>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: @json(session('error')),
+                confirmButtonColor: '#b91c1c',
+                confirmButtonText: 'Đóng',
+            });
+        </script>
     @endif
     @if(session('warning'))
-    <script>
-        Swal.fire({
-            icon: 'warning',
-            title: 'Cảnh báo!',
-            text: @json(session('warning')),
-            confirmButtonColor: '#e65100',
-            confirmButtonText: 'Đóng',
-        });
-    </script>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Cảnh báo!',
+                text: @json(session('warning')),
+                confirmButtonColor: '#e65100',
+                confirmButtonText: 'Đóng',
+            });
+        </script>
     @endif
 
     @yield('scripts')
 </body>
+
 </html>

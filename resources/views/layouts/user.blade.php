@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'AmaTrung') — Nhà thuốc Y học cổ truyền</title>
-    <meta name="description" content="AmaTrung - Nhà thuốc Y học cổ truyền. Tư vấn sức khỏe, khám chữa bệnh bằng y học cổ truyền.">
+    <meta name="description"
+        content="AmaTrung - Nhà thuốc Y học cổ truyền. Tư vấn sức khỏe, khám chữa bệnh bằng y học cổ truyền.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;           /* Modern Medical Blue */
+            --primary: #2563eb;
+            /* Modern Medical Blue */
             --primary-hover: #1d4ed8;
             --primary-soft: #eff6ff;
-            --accent: #10b981;            /* Herbal/Nature Green */
+            --accent: #10b981;
+            /* Herbal/Nature Green */
             --accent-hover: #059669;
             --accent-soft: #ecfdf5;
-            --bg-page: #f8fafc;           /* Light blue-grey tint */
+            --bg-page: #f8fafc;
+            /* Light blue-grey tint */
             --bg-card: #ffffff;
-            --nav-bg: #1e3a8a;            /* Deep Navy for Footer */
+            --nav-bg: #1e3a8a;
+            /* Deep Navy for Footer */
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
             --radius: 14px;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.05);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* ===== RESET & BASE ===== */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -93,7 +101,7 @@
         .brand-icon {
             font-size: 36px;
             line-height: 1;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
         }
 
         .brand-name {
@@ -215,8 +223,15 @@
         }
 
         @keyframes dropdownFade {
-            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .dropdown-item {
@@ -288,8 +303,15 @@
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ===== UTILITY CARDS ===== */
@@ -378,7 +400,7 @@
 
         .footer-brand-icon {
             font-size: 32px;
-            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
         }
 
         .footer-brand-name {
@@ -439,7 +461,11 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .navbar-inner { height: 72px; padding: 0 20px; }
+            .navbar-inner {
+                height: 72px;
+                padding: 0 20px;
+            }
+
             .navbar-links {
                 display: none;
                 position: absolute;
@@ -454,19 +480,44 @@
                 gap: 8px;
             }
 
-            .navbar-links.show { display: flex; }
-            .mobile-toggle { display: flex; align-items: center; justify-content: center; }
-            .nav-link { width: 100%; border-radius: 12px; }
-            
-            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-            .user-content { padding: 32px 16px; }
-            .content-card { padding: 24px; border-radius: 16px; }
-            .navbar-brand .brand-name { font-size: 24px; }
+            .navbar-links.show {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-link {
+                width: 100%;
+                border-radius: 12px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .user-content {
+                padding: 32px 16px;
+            }
+
+            .content-card {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            .navbar-brand .brand-name {
+                font-size: 24px;
+            }
         }
 
         @yield('styles')
     </style>
 </head>
+
 <body>
     {{-- Navbar --}}
     <nav class="user-navbar">
@@ -483,11 +534,14 @@
 
             <div class="navbar-links" id="navbarLinks">
                 <a href="{{ route('user.dashboard') }}"
-                   class="nav-link {{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
+                    class="nav-link {{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
                     🏠 Trang chủ
                 </a>
-                <a href="{{ route('user.articles.index') }}" class="nav-link {{ request()->routeIs('user.articles.*') ? 'active' : '' }}">📝 Bài viết</a>
-                <a href="{{ route('user.medicinal-herbs.index') }}" class="nav-link {{ request()->routeIs('user.medicinal-herbs.*') ? 'active' : '' }}">🌿 Từ điển Dược liệu</a>
+                <a href="{{ route('user.articles.index') }}"
+                    class="nav-link {{ request()->routeIs('user.articles.*') ? 'active' : '' }}">📝 Bài viết</a>
+                <a href="{{ route('user.medicinal-herbs.index') }}"
+                    class="nav-link {{ request()->routeIs('user.medicinal-herbs.*') ? 'active' : '' }}">🌿 Từ điển Dược
+                    liệu</a>
                 <a href="#" class="nav-link">📞 Liên hệ</a>
 
                 {{-- User dropdown --}}
@@ -579,7 +633,7 @@
         }
 
         // Close dropdown on outside click
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             const dropdown = document.getElementById('userDropdown');
             if (dropdown && !e.target.closest('.user-menu')) {
                 dropdown.classList.remove('show');
@@ -587,7 +641,7 @@
         });
 
         // Close mobile menu on resize
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             if (window.innerWidth > 768) {
                 document.getElementById('navbarLinks').classList.remove('show');
             }
@@ -596,4 +650,5 @@
 
     @yield('scripts')
 </body>
+
 </html>
