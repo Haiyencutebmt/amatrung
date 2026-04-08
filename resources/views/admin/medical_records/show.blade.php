@@ -6,83 +6,102 @@
 @section('styles')
     <style>
         .detail-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 36px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e8e2d8;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
             max-width: 900px;
+            animation: fadeInUp 0.5s ease-out;
         }
 
         .detail-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #e8f5e9;
+            margin-bottom: 36px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--primary-soft);
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .detail-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a5632;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
             margin: 0;
+            letter-spacing: -1px;
         }
 
         .header-actions {
             display: flex;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            border-radius: 10px;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
-            transition: all 0.15s;
+            transition: var(--transition);
             border: 1px solid transparent;
             cursor: pointer;
+            font-family: inherit;
         }
 
         .btn-default {
-            background: #faf7f2;
-            color: #5a6b5e;
-            border-color: #e8e2d8;
+            background: var(--bg-page);
+            color: var(--text-muted);
+            border-color: var(--border);
         }
-        .btn-default:hover { background: #f0ebe3; color: #2d3a2e; }
+
+        .btn-default:hover {
+            background: #fff;
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
 
         .btn-primary {
-            background: #e8f5e9;
-            color: #1a5632;
+            background: var(--primary-soft);
+            color: var(--primary);
         }
-        .btn-primary:hover { background: #c8e6c9; }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+        }
 
         /* Detail grid */
         .info-section {
-            margin-bottom: 30px;
+            margin-bottom: 36px;
         }
 
         .info-section h3 {
-            font-size: 18px;
-            color: #1a5632;
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #f2ede5;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 24px;
         }
 
         .info-item {
-            margin-bottom: 12px;
+            margin-bottom: 0;
         }
 
         .info-item.full-width {
@@ -92,22 +111,22 @@
         .info-label {
             display: block;
             font-size: 13px;
-            color: #5a6b5e;
-            font-weight: 600;
+            color: var(--text-muted);
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
         }
 
         .info-value {
-            font-size: 16px;
-            color: #2d3a2e;
-            font-weight: 500;
-            line-height: 1.5;
-            background: #faf7f2;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border: 1px solid #f2ede5;
+            font-size: 17px;
+            color: var(--text-main);
+            font-weight: 600;
+            line-height: 1.6;
+            background: var(--bg-page);
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
             white-space: pre-wrap;
         }
 
@@ -116,22 +135,51 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #e8f5e9;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #c8e6c9;
+            background: var(--primary-soft);
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            border: 1px solid var(--primary);
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .patient-info strong {
-            font-size: 18px;
-            color: #1a5632;
+            font-size: 20px;
+            color: var(--text-main);
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            font-weight: 800;
         }
 
         .patient-info span {
-            color: #2d3a2e;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .detail-card {
+                padding: 32px 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .patient-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 @endsection
@@ -141,7 +189,9 @@
         <div class="detail-header">
             <h2>Mã hồ sơ: {{ $medicalRecord->record_code }}</h2>
             <div class="header-actions">
-                <a href="{{ route('admin.prescriptions.create', ['medical_record_id' => $medicalRecord->id]) }}" class="btn" style="background: #e3f2fd; color: #1565c0; border-color: #bbdefb;">💊 Tạo đơn thuốc</a>
+                <a href="{{ route('admin.prescriptions.create', ['medical_record_id' => $medicalRecord->id]) }}" class="btn"
+                    style="background: var(--accent-soft); color: var(--accent-hover); border-color: var(--accent);">💊 Tạo
+                    đơn thuốc</a>
                 <a href="{{ route('admin.medical-records.edit', $medicalRecord) }}" class="btn btn-primary">✏️ Sửa hồ sơ</a>
                 <a href="{{ route('admin.medical-records.index') }}" class="btn btn-default">Quay lại</a>
             </div>
@@ -152,9 +202,11 @@
             <div class="patient-box">
                 <div class="patient-info">
                     <strong>{{ $medicalRecord->patient->full_name }}</strong>
-                    <span>Giới tính: {{ $medicalRecord->patient->gender_label }} | Tuổi: {{ $medicalRecord->patient->age ?: '—' }} | SĐT: {{ $medicalRecord->patient->phone ?: '—' }}</span>
+                    <span>Giới tính: {{ $medicalRecord->patient->gender_label }} | Tuổi:
+                        {{ $medicalRecord->patient->age ?: '—' }} | SĐT: {{ $medicalRecord->patient->phone ?: '—' }}</span>
                 </div>
-                <a href="{{ route('admin.patients.show', $medicalRecord->patient_id) }}" class="btn btn-default" style="background:#fff;">👁 Xem hồ sơ cá nhân</a>
+                <a href="{{ route('admin.patients.show', $medicalRecord->patient_id) }}" class="btn btn-default">👁 Xem hồ
+                    sơ cá nhân</a>
             </div>
         </div>
 
@@ -167,7 +219,9 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">Ngày tái khám</span>
-                    <div class="info-value">{{ $medicalRecord->follow_up_date ? $medicalRecord->follow_up_date->format('d/m/Y') : '—' }}</div>
+                    <div class="info-value">
+                        {{ $medicalRecord->follow_up_date ? $medicalRecord->follow_up_date->format('d/m/Y') : '—' }}
+                    </div>
                 </div>
 
                 <div class="info-item full-width">
